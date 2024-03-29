@@ -1,25 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
-#define rep(i, n) for (ll i = 0; i < (ll)(n); i++)
-#define rep2(i, s, n) for (ll i = (s); i < (ll)(n); i++)
-
-int main(){
-    ll n, k, tmp;
+#define rep(i, n) for (int i = 0; i < (int)(n); i++)
+int main() {
+    int n, k;
     cin >> n >> k;
-    vector<ll> a(k), x(n), y(n);
-    rep(i, k) cin >> a[i], a[i]--;
+    vector<int> a(k);
+    vector<long long> x(n), y(n);
+    for(auto &nx : a){
+    cin >> nx;
+    nx--;
+  }
     rep(i, n) cin >> x[i] >> y[i];
 
-    ll res = 0;
+    long long res = 0;
     rep(i, n){
-        ll cres = 8e18;
+        long long cres = 8e18;
         for(auto &nx : a){
             cres = min(cres, (x[i] - x[nx])*(x[i] - x[nx]) + (y[i] - y[nx])*(y[i] - y[nx]));
         }
         res = max(res,cres);
     }
     cout << fixed << setprecision(15) << sqrt((double)res) << endl;
-
-
 }
