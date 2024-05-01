@@ -1,27 +1,54 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define rep(i, n) for (int i = 1; i <= (int)(n); i++)
+using ll = long long;
+#define rep(i, n) for (int i = 0; i < (int)(n); i++)
 #define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
-long long n, k, a[1000009];
+#define fore(i, a) for(auto &i : a)
+#define all(a) (a).begin(), (a).end()
+using Graph = vector<vector<int>>;
+const int dx[]={1,1,1,0,0,-1,-1,-1};
+const int dy[]={1,0,-1,1,-1,1,0,-1};
+const double PI = acos(-1);
+const int di[] = {-1, 0, 1, 0};
+const int dj[] = {0, 1, 0, -1};
 
-bool ck(long long x){
-    long long sum = 0;
-    rep(i, n) sum += x/a[i];
-    if(sum >= k) return true;
-    return false;
+int n, k;
+vector<int> a;
+
+bool isOK(ll index, ll key){
+    if(index >= key) return true;
+    else return false;
 }
 
-int main() {
+ll check(ll index){
+    ll sum = 0;
+    rep(i, n) sum += index / a[i];
+    return sum;
+}
+
+ll Binary_search(ll key){
+    ll ng = -1;
+    ll ok = 1000000000;
+
+    while(abs(ok - ng) > 1){
+        ll mid = (ok + ng) / 2;
+        ll sum = check(mid);
+        
+        if(isOK(sum, key)) ok = mid;
+        else ng = mid;
+    }
+    return ok;
+}
+
+int main(){
     cin >> n >> k;
+    int t;
     rep(i, n){
-        cin >> a[i];
+        cin >> t;
+        a.push_back(t);
     }
-    long long left = 1, right = 1000000000;
-    while(left < right){
-        int mid = (left + right)/2;
-        bool ans = ck(mid);
-        if(ans == false) left = mid + 1;
-        if(ans == true) right = mid;
-    }
-    cout << left << endl;
+    cout << Binary_search(k) << endl;
+    return 0;
+
+
 }
