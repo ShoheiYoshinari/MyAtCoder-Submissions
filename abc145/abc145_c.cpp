@@ -1,36 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
 #define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
+#define fore(i, a) for(auto &i : a)
 #define all(a) (a).begin(), (a).end()
-using Graph = vector<vector<int>>;
 const int dx[]={1,1,1,0,0,-1,-1,-1};
 const int dy[]={1,0,-1,1,-1,1,0,-1};
 const double PI = acos(-1);
-
-int n;
-int x[9], y[9];
+const int di[] = {-1, 0, 1, 0};
+const int dj[] = {0, 1, 0, -1};
 
 int main(){
+    int n, x, y;
+    vector<pair<int, int> > town;
     cin >> n;
-    rep(i, n) cin >> x[i] >> y[i];
+    rep(i, n){
+        cin >> x >> y;
+        town.emplace_back(x, y);
+    }
+    vector<int> pass;
+    rep(i, n) pass.push_back(i);
 
-    vector<int> root;
-    rep(i, n) root.push_back(i);
-
-    int ans = 0;
-    double distance = 0;
+    long double ssum = 0.0, cnt = 0;
     do{
-        rep(i, n-1){
-            distance += sqrt((x[root[i]] - x[root[i+1]])*(x[root[i]] - x[root[i+1]]) 
-                      + (y[root[i]] - y[root[i+1]])*(y[root[i]] - y[root[i+1]]));
-        }
-    }while(next_permutation(all(root)));
+        cnt++;
+        long double sum = 0.0;
+        rep2(i, 1, n) sum += sqrt((town[pass[i-1]].first - town[pass[i]].first) * (town[pass[i-1]].first - town[pass[i]].first)
+                           + (town[pass[i-1]].second - town[pass[i]].second) * (town[pass[i-1]].second - town[pass[i]].second));
+        ssum += sum;
+    }while(next_permutation(all(pass)));
 
-    int wari = 1;
-    rep(i, n) wari *= i+1;
-
-    cout << fixed << setprecision(10) << distance / wari << endl;
+    cout << fixed << setprecision(10) << (long double) ssum / (long double) cnt << endl;
     return 0;
-
 }
