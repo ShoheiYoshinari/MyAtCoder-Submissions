@@ -2,31 +2,39 @@
 using namespace std;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
 #define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
+#define fore(i, a) for(auto &i : a)
+#define all(a) (a).begin(), (a).end()
+const int dx[]={1,1,1,0,0,-1,-1,-1};
+const int dy[]={1,0,-1,1,-1,1,0,-1};
+const double PI = acos(-1);
+const int di[] = {-1, 0, 1, 0};
+const int dj[] = {0, 1, 0, -1};
+
+int n;
+
 int main(){
-    int n;
     cin >> n;
-    vector<int> p(n), q(n), v(n);
+    vector<int> p(n), q(n);
     rep(i, n) cin >> p[i];
     rep(i, n) cin >> q[i];
-    rep(i, n) v[i] = i + 1;
 
-    int idx = 0, a = -1, b = -1;
+    vector<int> a;
+    rep(i, n) a.push_back(i+1);
+
+    int cnt = 1; 
+    int s, t;
     do{
-        bool ok = true;
+        bool okp = true, okq = true;
         rep(i, n){
-            if(p[i] != v[i]) ok = false;
+            if(p[i] != a[i]) okp = false;
+            if(q[i] != a[i]) okq = false;
         }
-        if(ok) a = idx;
+        if(okp) s = cnt;
+        if(okq) t = cnt;
 
-        ok = true;
-        rep(i, n){
-            if(q[i] != v[i]) ok = false;
-        }
-        if(ok) b = idx;
+        cnt++;
+    }while(next_permutation(all(a)));
 
-        idx++;
-    }while(next_permutation(v.begin(), v.end()));
-
-    cout << abs(a - b) << endl;
-
+    cout << abs(s - t) << endl;
+    return 0;
 }
