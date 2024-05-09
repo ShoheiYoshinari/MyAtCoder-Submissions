@@ -28,7 +28,7 @@ jobs:
       continue-on-error: true
       run : |
         git config user.name "AutoCloneBot"
-        git config user.email "yoshinari0508@icloud.com"
+        git config user.email "acautoclone@bot.com"
         git add .
         git commit -m "Added my codes from AtCoder"
         git pull
