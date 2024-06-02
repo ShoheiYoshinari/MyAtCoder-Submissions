@@ -1,38 +1,46 @@
-#include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
-#define all(a) (a).begin(), (a).end()
-using Graph = vector<vector<int>>;
-const int dx[]={1,1,1,0,0,-1,-1,-1};
-const int dy[]={1,0,-1,1,-1,1,0,-1};
-const int di[] = {1, 0, -1, 0};
-const int dj[] = {0, 1, 0, -1};
-const double PI = acos(-1);
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
-int main(){
-    int n;
-    cin >> n;
-    int max_r = 0;
-    vector<pair<int, int>> p;
-    rep(i, n){
-        int l , r;
+using namespace std;
+
+struct Event {
+    int time;
+    bool is_start;
+};
+
+int main() {
+    int N;
+    cin >> N;
+
+    vector<Event> events;
+
+    for (int i = 0; i < N; ++i) {
+        int l, r;
         cin >> l >> r;
-        p.emplace_back(l, 0);
-        p.emplace_back(r, 1);
+        events.push_back({l, true});
+        events.push_back({r, false});
     }
-    sort(all(p));
-    ll ans = 0;
-    ll cur = 0;
-    for(auto [x, t] : p){
-        if(t == 0){
-            ans += cur;
-            cur++;
-        }else{
-            cur--;
+
+    sort(events.begin(), events.end(), [](const Event& a, const Event& b) {
+        if (a.time != b.time)
+            return a.time < b.time;
+        return a.is_start > b.is_start;  // prioritize start over end when times are the same
+    });
+
+    long long active_intervals = 0;
+    long long result = 0;
+
+    for (const auto& event : events) {
+        if (event.is_start) {
+            result += active_intervals;  // new interval intersects with all currently active intervals
+            active_intervals++;
+        } else {
+            active_intervals--;
         }
     }
-    cout << ans << endl;
+
+    cout << result << endl;
+
     return 0;
 }
