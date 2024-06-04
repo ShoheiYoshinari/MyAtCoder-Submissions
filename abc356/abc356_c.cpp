@@ -34,9 +34,11 @@ int main(){
         vector<int> sum(m, 0);
 
         rep2(j, 1, n){
-            int wari = (1 << (j-1));
+            // 39~41行目は以下の処理で簡潔にコードできる
+            if(i & (1 << (j-1))){ //：iのjbit目が１であれば処理
+            //int wari = (1 << (j-1));
             //honnmono
-            if((i/wari)%2 == 1){
+            //if((i/wari)%2 == 1){
                 rep(vi, m){
                     if(a[vi][j-1]) sum[vi]++;
                 }
