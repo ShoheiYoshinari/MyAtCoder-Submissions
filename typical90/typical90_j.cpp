@@ -21,22 +21,31 @@ const double PI = acos(-1);
 #endif
 
 int main(){
-    ll n;
+    int n;
     cin >> n;
-    vector<ll> a(n);
-    rep(i, n) cin >> a[i];
-
-    ll ans = 0;
-    ll sum = 0, b = 0;
-    ll max_b = 0;
-    
+    vector<pair<int, int>> c;
     rep(i, n){
-        b += a[i];
-        chmax(max_b, b);
-        chmax(ans, sum + max_b);
-        sum += b;
+        int cc, p;
+        cin >> cc >> p;
+        c.emplace_back(cc, p);
     }
-    cout << ans << endl;
-    return 0;
 
+    vector<vector<int>> s(3, vector<int> (n+1, 0));
+    rep(i, n){
+        if(c[i].first == 1){
+            s[1][i+1] = s[1][i] + c[i].second;
+            s[2][i+1] = s[2][i];
+        }else if(c[i].first == 2){
+            s[1][i+1] = s[1][i];
+            s[2][i+1] = s[2][i] + c[i].second;
+        }
+    }
+
+    int q;
+    cin >> q;
+    rep(i, q){
+        int l, r;
+        cin >> l >> r;
+        cout << s[1][r] - s[1][l-1] << ' ' << s[2][r] - s[2][l-1] << endl;
+    }
 }

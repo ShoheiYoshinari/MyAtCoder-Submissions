@@ -2,7 +2,7 @@
 using namespace std;
 using ll = long long;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
+#define rep2(i, s, n) for (int i = (s); i <= (int)(n); i++)
 template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
 template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
 #define all(a) (a).begin(), (a).end()
@@ -21,22 +21,17 @@ const double PI = acos(-1);
 #endif
 
 int main(){
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    rep(i, n) cin >> a[i];
+    string s, t;
+    cin >> s >> t;
 
-    ll ans = 0;
-    ll sum = 0, b = 0;
-    ll max_b = 0;
-    
-    rep(i, n){
-        b += a[i];
-        chmax(max_b, b);
-        chmax(ans, sum + max_b);
-        sum += b;
+    int ans = 0;
+    rep2(i, 0, s.size() - t.size()){
+        int cnt = 0;
+        rep(j, t.size()){
+            if(s[i+j] == t[j]) cnt++;
+        }
+        chmax(ans, cnt);
     }
-    cout << ans << endl;
-    return 0;
+    cout << t.size() - ans << endl;
 
 }
