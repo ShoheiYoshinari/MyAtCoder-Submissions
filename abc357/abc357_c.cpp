@@ -18,25 +18,36 @@ struct INIT{
  }
 }INIT;
 
-bool asc_desc(tuple<string, int, int>& left, tuple<string, int, int>& right) {
-  if (get<0>(left) == get<0>(right)) {
-    return get<1>(right) < get<1>(left);
-  } else {
-    return get<0>(left)  < get<0>(right);
-  }
+vector<string> carpet(int level) {
+    if (level == 0) {
+        return {"#"};
+    }
+
+    //saiki
+    vector<string> sub_carpet = carpet(level - 1);
+
+    int size = sub_carpet.size();
+    vector<string> carpet(size * 3);
+    rep(i, 3){
+        rep(j, size){
+            if (i == 1) {
+                carpet[i * size + j] = sub_carpet[j] + string(size, '.') + sub_carpet[j];
+            } else {
+                carpet[i * size + j] = sub_carpet[j] + sub_carpet[j] + sub_carpet[j];
+            }
+        }
+    }
+    return carpet;
 }
 
 int main() {
     int n;
     cin >> n;
-    vector<tuple<string, int, int>> r;
-    rep(i, n){
-        string s;
-        int p;
-        cin >> s >> p;
-        r.emplace_back(s, p, i+1);
-    }
-    sort(r.begin(), r.end(), asc_desc);
 
-    for(auto [s, p, ans] : r) cout << ans << endl;
+    vector<string> carpets = carpet(n);
+    for (auto row : carpets) {
+        cout << row << endl;
+    }
+
+    return 0;
 }

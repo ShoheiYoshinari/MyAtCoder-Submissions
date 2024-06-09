@@ -18,11 +18,24 @@ struct INIT{
  }
 }INIT;
 
+int gcd(int a, int b) {
+    return b ? gcd(b, a%b) : a;
+}
+
 int main(){
-    ll h, w;
-    cin >> h >> w;
-    if(h == 1 || w == 1) cout << 1 << endl;
-    else if(h%2 == 1 && w%2 == 1) cout << (h*w)/2+1 << endl;
-    else cout << h*w/2 << endl;
-    return 0;
+    int n; cin >> n;
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
+
+    vector<int> l(n+1, 0), r(n+1, 0);
+    for(int i = 0; i < n; i++) l[i+1] = gcd(l[i], a[i]);
+    for(int i = n-1; i >= 0; i--) r[i] = gcd(r[i+1], a[i]);
+
+    int res = 0;
+    rep(i, n){
+        int left = l[i];
+        int right = r[i+1];
+        chmax(res, gcd(left, right));
+    }
+    cout << res << endl;
 }

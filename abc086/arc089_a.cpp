@@ -19,21 +19,27 @@ const double PI = acos(-1);
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
-int gcd(int a, int b) {
-    return b ? gcd(b, a%b) : a;
-}
 
 int main(){
-    int k;
-    cin >> k;
+    ll n;
+    cin >> n;
+    vector<ll> t(n), x(n), y(n);
+    rep(i, n) cin >> t[i] >> x[i] >> y[i];
 
-    ll ans = 0;
-    rep2(x, 1, k){
-        rep2(y, 1, k){
-            rep2(z, 1, k){
-                ans += gcd(x, gcd(y, z));
-            }
+    ll cx = 0, cy = 0;
+    ll timer = 0;
+    rep(i, n){
+        ll res = t[i] - timer;
+        ll dist = abs(cx-x[i]) + abs(cy-y[i]);
+
+        if(dist > res || (res-dist)%2 == 1){
+            cout << "No" << endl;
+            return 0;
         }
+        cx = x[i];
+        cy = y[i];
+        timer = t[i];
     }
-    cout << ans << endl;
+    cout << "Yes" << endl;
+    return 0;
 }

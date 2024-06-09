@@ -18,11 +18,22 @@ struct INIT{
  }
 }INIT;
 
-int main(){
-    ll h, w;
-    cin >> h >> w;
-    if(h == 1 || w == 1) cout << 1 << endl;
-    else if(h%2 == 1 && w%2 == 1) cout << (h*w)/2+1 << endl;
-    else cout << h*w/2 << endl;
+int main() {
+    int n;
+    cin >> n;
+    int max = 0;
+    map<string, int> mp;
+    rep(i, n){
+        string tmp;
+        cin >> tmp;
+        mp[tmp]++;
+        chmax(max, mp[tmp]);
+    }
+    for(auto p : mp){
+        if(max == p.second){
+            cout << p.first << endl;
+            return 0;
+        }
+    }
     return 0;
 }

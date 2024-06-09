@@ -3,10 +3,8 @@ using namespace std;
 using ll = long long;
 using ull = unsigned long long;
 const double pi = acos(-1);
-template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
-template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
+#define rep2(i, s, n) for (int i = (s); i <= (int)(n); i++)
 #define all(p) (p).begin(), (p).end()
 #define exists(c, e) ((c).find(e) != (c).end())
 
@@ -18,11 +16,19 @@ struct INIT{
  }
 }INIT;
 
-int main(){
-    ll h, w;
-    cin >> h >> w;
-    if(h == 1 || w == 1) cout << 1 << endl;
-    else if(h%2 == 1 && w%2 == 1) cout << (h*w)/2+1 << endl;
-    else cout << h*w/2 << endl;
+int main() {
+    int n;
+    cin >> n;
+    set<string> st;
+    int cnt  = 0;
+    rep2(i, 1, n){
+        string tmp;
+        cin >> tmp;
+        st.insert(tmp);
+        if(cnt < st.size()){
+            cout << i << endl;
+            cnt = st.size();
+        }
+    }
     return 0;
 }

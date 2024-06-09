@@ -18,11 +18,28 @@ struct INIT{
  }
 }INIT;
 
-int main(){
-    ll h, w;
-    cin >> h >> w;
-    if(h == 1 || w == 1) cout << 1 << endl;
-    else if(h%2 == 1 && w%2 == 1) cout << (h*w)/2+1 << endl;
-    else cout << h*w/2 << endl;
+int main() {
+    string s;
+    cin >> s;
+    int cnta = 0, cntb = 0;
+    rep(i, s.size()){
+        if(s[i] >= 'a' && 'z' >= s[i]) cnta++;
+        if(s[i] >= 'A' && 'Z' >= s[i]) cntb++;
+    }
+    if(cnta > cntb){
+        rep(i, s.size()){
+            if(s[i] >= 'A' && 'Z' >= s[i]){
+                cout << (char)(tolower(s[i]));
+            }else cout << s[i];
+        }
+        cout << endl;
+    }else{
+        rep(i, s.size()){
+            if(s[i] >= 'a' && 'z' >= s[i]){
+                cout << (char)(toupper(s[i]));
+            }else cout << s[i];
+        }
+        cout << endl;
+    }
     return 0;
 }

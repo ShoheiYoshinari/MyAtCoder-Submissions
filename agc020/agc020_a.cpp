@@ -2,7 +2,7 @@
 using namespace std;
 using ll = long long;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep2(i, s, n) for (int i = (s); i <= (int)(n); i++)
+#define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
 template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
 template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
 #define all(a) (a).begin(), (a).end()
@@ -19,21 +19,15 @@ const double PI = acos(-1);
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
-int gcd(int a, int b) {
-    return b ? gcd(b, a%b) : a;
-}
 
 int main(){
-    int k;
-    cin >> k;
+    int n, a, b;
+    cin >> n >> a >> b;
 
-    ll ans = 0;
-    rep2(x, 1, k){
-        rep2(y, 1, k){
-            rep2(z, 1, k){
-                ans += gcd(x, gcd(y, z));
-            }
-        }
+    if(abs(a-b)%2 == 1){
+        cout << "Borys" << endl;
+    }else{
+        cout << "Alice" << endl;
     }
-    cout << ans << endl;
+    return 0;
 }

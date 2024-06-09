@@ -18,11 +18,22 @@ struct INIT{
  }
 }INIT;
 
-int main(){
-    ll h, w;
-    cin >> h >> w;
-    if(h == 1 || w == 1) cout << 1 << endl;
-    else if(h%2 == 1 && w%2 == 1) cout << (h*w)/2+1 << endl;
-    else cout << h*w/2 << endl;
-    return 0;
+int main() {
+    int n, m;
+    cin >> n >> m;
+    vector<int> h(n);
+    rep(i, n) cin >> h[i];
+
+    int now;
+
+    for(now = 0; now < n; now++){
+        if(m < h[now]){
+            cout << now << endl;
+            return 0;
+        }else{
+            m -= h[now];
+            
+        }
+    }
+    cout << now << endl;
 }

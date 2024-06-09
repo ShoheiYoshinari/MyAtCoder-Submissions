@@ -19,21 +19,16 @@ const double PI = acos(-1);
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
-int gcd(int a, int b) {
+
+ll gcd(ll a, ll b) {
     return b ? gcd(b, a%b) : a;
 }
 
 int main(){
-    int k;
-    cin >> k;
+    ll a, b, c;
+    cin >> a >> b >> c;
 
-    ll ans = 0;
-    rep2(x, 1, k){
-        rep2(y, 1, k){
-            rep2(z, 1, k){
-                ans += gcd(x, gcd(y, z));
-            }
-        }
-    }
-    cout << ans << endl;
+    ll r = gcd(a, gcd(b, c));
+
+    cout <<  (a/r-1) + (b/r-1) + (c/r-1) << endl;
 }

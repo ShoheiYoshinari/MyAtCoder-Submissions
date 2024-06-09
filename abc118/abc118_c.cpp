@@ -18,11 +18,18 @@ struct INIT{
  }
 }INIT;
 
-int main(){
-    ll h, w;
-    cin >> h >> w;
-    if(h == 1 || w == 1) cout << 1 << endl;
-    else if(h%2 == 1 && w%2 == 1) cout << (h*w)/2+1 << endl;
-    else cout << h*w/2 << endl;
+int gcd(int a, int b) {
+    return b ? gcd(b, a%b) : a;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
+
+    int ans = a[0];
+    rep(i, n) ans = gcd(ans, a[i]);
+    cout << ans << endl;
     return 0;
 }
