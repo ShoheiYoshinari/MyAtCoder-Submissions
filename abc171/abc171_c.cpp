@@ -21,7 +21,8 @@ struct INIT{
 string long_to_base(long long n, long long p){
     string ans;
     while(n>0){
-        char c = ((n%p)+'0');
+        n--;
+        char c = (char)((n%p)+'a');
         ans = c + ans;
         n /= p;
     }
@@ -31,19 +32,6 @@ string long_to_base(long long n, long long p){
 int main() {
     ll n;
     cin >> n;
-
-    int cnt = 0;
-    while(n){
-        string b8 = long_to_base(n, 8);
-        string b10 = to_string(n);
-        n--;
-        
-        bool ok1 = false, ok2 = false;
-        rep(i, b8.size()) if(b8[i] == '7') ok1 = true;
-        rep(i, b10.size()) if(b10[i] == '7') ok2 = true;
-
-        if(ok1 || ok2) continue;
-        cnt++;
-    }
-    cout << cnt << endl;
+    cout << long_to_base(n, 26) << endl;
+    return 0;
 }

@@ -18,32 +18,26 @@ struct INIT{
  }
 }INIT;
 
-string long_to_base(long long n, long long p){
-    string ans;
-    while(n>0){
-        char c = ((n%p)+'0');
-        ans = c + ans;
-        n /= p;
-    }
-    return ans;
-}
-
 int main() {
-    ll n;
-    cin >> n;
-
-    int cnt = 0;
-    while(n){
-        string b8 = long_to_base(n, 8);
-        string b10 = to_string(n);
-        n--;
-        
-        bool ok1 = false, ok2 = false;
-        rep(i, b8.size()) if(b8[i] == '7') ok1 = true;
-        rep(i, b10.size()) if(b10[i] == '7') ok2 = true;
-
-        if(ok1 || ok2) continue;
-        cnt++;
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> g(n);
+    rep(i, m){
+        int a, b;
+        cin >> a >> b;
+        a--, b--;
+        g[a].push_back(b);
+        g[b].push_back(a);
     }
-    cout << cnt << endl;
+
+    int ans = 0;
+    rep(i, n){
+        int cnt = 0;
+        rep(j, g[i].size()){
+            if(i > g[i][j]) cnt++;
+        }
+        if(cnt == 1) ans++;
+    }
+    cout << ans << endl;
+    return 0;
 }
