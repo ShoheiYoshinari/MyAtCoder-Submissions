@@ -18,30 +18,28 @@ struct INIT{
  }
 }INIT;
 
-int main(){
+int main() {
     int n;
     cin >> n;
-    vector<int> t(n);
-    vector<double> l(n), r(n);
-    rep(i, n) cin >> t[i] >> l[i] >> r[i];
-
+    vector<pair<int,int>> task;
     rep(i, n){
-        if(t[i] == 2){
-            r[i] -= 0.1;
-        }else if(t[i] == 3){
-            l[i] += 0.1;
-        }else if(t[i] == 4){
-            l[i] += 0.1;
-            r[i] -= 0.1;
+        int a, b;
+        cin >> a >> b;
+        task.emplace_back(b, a);
+    }
+    sort(all(task));
+
+    int time = 0;
+    bool ok = true;
+    rep(i, n){
+        if(time + task[i].second > task[i].first){
+            ok = false;
+            break;
+        }else{
+            time += task[i].second;
         }
     }
+    cout << (ok ? "Yes" : "No") << endl;
 
-    ll ans = 0;
-    rep(i, n){
-        rep2(j, i+1, n){
-            if(max(l[i], l[j]) <= min(r[i], r[j])) ans++;
-        }
-    }
-    cout << ans << endl;
-    return 0;
+
 }

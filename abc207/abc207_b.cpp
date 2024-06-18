@@ -19,29 +19,23 @@ struct INIT{
 }INIT;
 
 int main(){
-    int n;
-    cin >> n;
-    vector<int> t(n);
-    vector<double> l(n), r(n);
-    rep(i, n) cin >> t[i] >> l[i] >> r[i];
-
-    rep(i, n){
-        if(t[i] == 2){
-            r[i] -= 0.1;
-        }else if(t[i] == 3){
-            l[i] += 0.1;
-        }else if(t[i] == 4){
-            l[i] += 0.1;
-            r[i] -= 0.1;
-        }
-    }
+    ll a, b, c, d;
+    cin >> a >> b >> c >> d;
 
     ll ans = 0;
-    rep(i, n){
-        rep2(j, i+1, n){
-            if(max(l[i], l[j]) <= min(r[i], r[j])) ans++;
+    ll blue = a, red = 0;
+    bool isok = false;
+    rep(cnt, a+1){
+        if(blue <= red*d){
+            isok = true;
+            ans = cnt;
+            break;
+        }
+        else{
+            blue += b;
+            red += c;
         }
     }
-    cout << ans << endl;
+    cout << (isok ? ans : -1) << endl;
     return 0;
 }

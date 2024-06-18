@@ -18,30 +18,19 @@ struct INIT{
  }
 }INIT;
 
-int main(){
-    int n;
-    cin >> n;
-    vector<int> t(n);
-    vector<double> l(n), r(n);
-    rep(i, n) cin >> t[i] >> l[i] >> r[i];
+int main() {
+    double a, b, h, m;
+    cin >> a >> b >> h >> m;
 
-    rep(i, n){
-        if(t[i] == 2){
-            r[i] -= 0.1;
-        }else if(t[i] == 3){
-            l[i] += 0.1;
-        }else if(t[i] == 4){
-            l[i] += 0.1;
-            r[i] -= 0.1;
-        }
-    }
+    double deg_a = 2*pi*(h + m/60.0)/12.0;
+    double deg_b = 2*pi*m/60.0;
+    //cout << deg_a << endl;
+    //cout << deg_b << endl;
+    double deg = abs(deg_a - deg_b);
 
-    ll ans = 0;
-    rep(i, n){
-        rep2(j, i+1, n){
-            if(max(l[i], l[j]) <= min(r[i], r[j])) ans++;
-        }
-    }
-    cout << ans << endl;
+    if(deg > pi) deg = 2*pi - deg;
+    //cout << deg << endl;
+    double c = sqrt(a*a + b*b -2*a*b*cos(deg));
+    cout << c << endl;
     return 0;
 }

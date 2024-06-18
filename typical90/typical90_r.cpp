@@ -2,7 +2,7 @@
 using namespace std;
 using ll = long long;
 using ull = unsigned long long;
-const double pi = acos(-1);
+const long double pi = acos(-1);
 template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
 template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
@@ -19,29 +19,26 @@ struct INIT{
 }INIT;
 
 int main(){
-    int n;
-    cin >> n;
-    vector<int> t(n);
-    vector<double> l(n), r(n);
-    rep(i, n) cin >> t[i] >> l[i] >> r[i];
+    long double t;
+    cin >> t;
+    long double l, x, y;
+    cin >> l >> x >> y;
 
-    rep(i, n){
-        if(t[i] == 2){
-            r[i] -= 0.1;
-        }else if(t[i] == 3){
-            l[i] += 0.1;
-        }else if(t[i] == 4){
-            l[i] += 0.1;
-            r[i] -= 0.1;
-        }
-    }
+    int q;
+    cin >> q;
+    rep(i, q){
+        long double e;
+        cin >> e;
 
-    ll ans = 0;
-    rep(i, n){
-        rep2(j, i+1, n){
-            if(max(l[i], l[j]) <= min(r[i], r[j])) ans++;
-        }
+        long double deg = e/t*2.0*pi;
+        long double sx = 0.0;
+        long double sy = -(l/2.0)*sin(deg);
+        long double sz = (l/2.0) - (l/2.0)*cos(deg);
+
+        long double a = sqrt((sx-x)*(sx-x) + (sy-y)*(sy-y));
+        long double b = sz;
+        long double hukaku = atan2(b, a);
+        cout << hukaku * 180.0l / pi << endl;
     }
-    cout << ans << endl;
     return 0;
 }

@@ -18,30 +18,16 @@ struct INIT{
  }
 }INIT;
 
-int main(){
-    int n;
-    cin >> n;
-    vector<int> t(n);
-    vector<double> l(n), r(n);
-    rep(i, n) cin >> t[i] >> l[i] >> r[i];
+int main() {
+    long double a, b, x;
+    cin >> a >> b >> x;
 
-    rep(i, n){
-        if(t[i] == 2){
-            r[i] -= 0.1;
-        }else if(t[i] == 3){
-            l[i] += 0.1;
-        }else if(t[i] == 4){
-            l[i] += 0.1;
-            r[i] -= 0.1;
-        }
+    long double S = x/a;
+    if(S <= a*b/2){
+        cout << atan2(b, 2*S/b) * 180.0l / pi << endl;
+    }else{
+        long double h = (a*b-S)*2/a;
+        cout << atan2(h, a) * 180.0l / pi << endl;
     }
-
-    ll ans = 0;
-    rep(i, n){
-        rep2(j, i+1, n){
-            if(max(l[i], l[j]) <= min(r[i], r[j])) ans++;
-        }
-    }
-    cout << ans << endl;
     return 0;
 }
