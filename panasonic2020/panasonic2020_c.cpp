@@ -19,13 +19,10 @@ struct INIT{
 }INIT;
 
 int main() {
-    ll a;
-    cin >> a;
-    ll b, d;
-    char c;
-    cin >> b >> c >> d;
-    b *= 100;
-    b += d;
-    cout << a*b/100 << endl;
+    long double a, b, c;
+    cin >> a >> b >> c;
+
+    long double eps = 1e-14;
+    cout << (sqrt(a) + sqrt(b) < sqrt(c) - eps ? "Yes" : "No") << endl;
     return 0;
 }
