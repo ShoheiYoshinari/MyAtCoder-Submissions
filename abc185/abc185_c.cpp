@@ -19,26 +19,15 @@ struct INIT{
 }INIT;
 
 int main() {
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    rep(i, n) cin >> a[i];
+    ll l;
+    cin >> l;
+    l--;
 
     ll res = 1;
-    ll p18 = 1e18;
-    rep(i, n) if(a[i] == 0){
-        cout << 0 << endl;
-        return 0;
-    }
-    rep(i, n){
-        
-        if(res > p18 / a[i]){
-            cout << -1 << endl;
-            return 0;
-        }else{
-            res *= a[i];
-        }
+    rep2(i, 1, 11){
+        res *= l;
+        res /= i;
+        l--;
     }
     cout << res << endl;
-    return 0;
 }

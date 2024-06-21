@@ -18,27 +18,17 @@ struct INIT{
  }
 }INIT;
 
-int main() {
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    rep(i, n) cin >> a[i];
+ll gcd(ll a, ll b) {
+    return b ? gcd(b, a%b) : a;
+}
 
-    ll res = 1;
+int main() {
+    ll a, b;
+    cin >> a >> b;
+
     ll p18 = 1e18;
-    rep(i, n) if(a[i] == 0){
-        cout << 0 << endl;
-        return 0;
-    }
-    rep(i, n){
-        
-        if(res > p18 / a[i]){
-            cout << -1 << endl;
-            return 0;
-        }else{
-            res *= a[i];
-        }
-    }
-    cout << res << endl;
+    ll g = gcd(a, b);
+    if(a / g > p18 / b) cout << "Large" << endl;
+    else cout << a / g * b << endl;
     return 0;
 }

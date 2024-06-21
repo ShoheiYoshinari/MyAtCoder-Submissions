@@ -1,36 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
+using ull = unsigned long long;
+const double pi = acos(-1);
+template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
+template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
-#define all(a) (a).begin(), (a).end()
-using Graph = vector<vector<int>>;
-const int dx[]={1,1,1,0,0,-1,-1,-1};
-const int dy[]={1,0,-1,1,-1,1,0,-1};
-const double PI = acos(-1);
+#define rep2(i, s, n) for (int i = (s); i <= (int)(n); i++)
+#define all(p) (p).begin(), (p).end()
+#define exists(c, e) ((c).find(e) != (c).end())
 
-int main(){
+struct INIT{
+ INIT(){
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(0);
+  cout << fixed << setprecision(20);
+ }
+}INIT;
+
+int main() {
     int n, k;
-    int t[9][9];
     cin >> n >> k;
-    rep(i, n){
-        rep(j, n) cin >> t[i][j];
-    }
+    vector<vector<int>> t(n, vector<int> (n));
+    rep(i, n) rep(j, n) cin >> t[i][j];
 
-    vector<int> idx;
-    rep2(i, 1, n) idx.push_back(i);
+    vector<int> od(n-1);
+    rep(i, n-1) od[i] = i+1;
 
-    int ans = 0;
+    ll cnt = 0;
+    ll time;
+    int from;
     do{
-        int time = 0;
-        rep(i, n){
-            time += t[idx[i]][idx[(i+1)%n]];
+        time = 0;
+        from = 0;
+        rep(i, od.size()){
+            time += t[from][od[i]];
+            from = od[i];
         }
-        if(time == k) ans++;
-
-
-    }while(next_permutation(all(idx)));
-    cout << ans << endl;
+        time += t[od.back()][0];
+        if(time == k) cnt++;
+    }while(next_permutation(all(od)));
+    cout << cnt << endl;
     return 0;
-
-
 }

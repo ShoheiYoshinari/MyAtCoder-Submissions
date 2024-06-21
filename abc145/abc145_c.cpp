@@ -1,36 +1,50 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
+using ull = unsigned long long;
+const double pi = acos(-1);
+template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
+template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
-#define fore(i, a) for(auto &i : a)
-#define all(a) (a).begin(), (a).end()
-const int dx[]={1,1,1,0,0,-1,-1,-1};
-const int dy[]={1,0,-1,1,-1,1,0,-1};
-const double PI = acos(-1);
-const int di[] = {-1, 0, 1, 0};
-const int dj[] = {0, 1, 0, -1};
+#define rep2(i, s, n) for (int i = (s); i <= (int)(n); i++)
+#define all(p) (p).begin(), (p).end()
+#define exists(c, e) ((c).find(e) != (c).end())
+
+struct INIT{
+ INIT(){
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(0);
+  cout << fixed << setprecision(20);
+ }
+}INIT;
+
+long double distance(ll x, ll y, ll nx, ll ny){
+    return sqrt((x-nx)*(x-nx) + (y-ny)*(y-ny));
+}
 
 int main(){
-    int n, x, y;
-    vector<pair<int, int> > town;
+    ll n;
     cin >> n;
+    vector<pair<ll, ll>> pos;
     rep(i, n){
-        cin >> x >> y;
-        town.emplace_back(x, y);
+        ll x, y; cin >> x >> y;
+        pos.push_back(make_pair(x, y));
     }
-    vector<int> pass;
-    rep(i, n) pass.push_back(i);
+    
+    vector<int> od(n);
+    rep(i, n) od[i] = i;
 
-    long double ssum = 0.0, cnt = 0;
+    long double dist;
+    long double sum = 0;
+    ll cnt = 0;
     do{
+        dist = 0;
+        rep(i, n-1){
+            dist += distance(pos[od[i]].first, pos[od[i]].second, pos[od[i+1]].first, pos[od[i+1]].second);
+        }
+        sum += dist;
         cnt++;
-        long double sum = 0.0;
-        rep2(i, 1, n) sum += sqrt((town[pass[i-1]].first - town[pass[i]].first) * (town[pass[i-1]].first - town[pass[i]].first)
-                           + (town[pass[i-1]].second - town[pass[i]].second) * (town[pass[i-1]].second - town[pass[i]].second));
-        ssum += sum;
-    }while(next_permutation(all(pass)));
-
-    cout << fixed << setprecision(10) << (long double) ssum / (long double) cnt << endl;
-    return 0;
+    }while(next_permutation(all(od)));
+    cout << sum / (long double) cnt << endl;
+    
 }
