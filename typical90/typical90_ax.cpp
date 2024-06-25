@@ -78,19 +78,16 @@ public:
 using mint = modint<1000000007>;
 
 int main() {
-    int n, m;
-    cin >> n >> m;
-    vector<bool> b(1e5+9);
-    rep(i, m){
-        int tmp; cin >> tmp;
-        b[tmp] = true;
-    }
+    int n, l;
+    cin >> n >> l;
+    vector<mint> dp(n+1, 0);
 
-    vector<mint> dp(1e5+9, 0);
     dp[0] = 1;
-    rep(i, 0, n+1){
-        rep(d, 1, 2+1){
-            if(!b[i+d]) dp[i+d] += dp[i];
+    rep(i, 1, n+1){
+        if(i-l >= 0){
+            dp[i] = dp[i-1] + dp[i-l];
+        }else{
+            dp[i] = dp[i-1];
         }
     }
     cout << dp[n] << endl;
