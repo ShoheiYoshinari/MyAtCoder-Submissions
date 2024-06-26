@@ -20,12 +20,24 @@ struct INIT{
  }
 }INIT;
 
-const ll mod = 998244353;
+const ll MOD = 1000000007;
 int main() {
-    vector<ll> a(3);
-    rep(i, 3) cin >> a[i];
+    ll n;
+    cin >> n;
+    vector<vector<ll>> a(n, vector<ll> (6));
+    rep(i, n) rep(j, 6) cin >> a[i][j];
 
-    rep(i, 3) a[i] = a[i]*(a[i]+1)/2%mod;
-    cout << a[0]*a[1]%mod*a[2]%mod << endl;
+    vector<ll> s(n, 0);
+    ll ans = 1;
+    rep(i, n){
+        rep(j, 6) s[i] += a[i][j];
+    }
+    rep(i, n){
+        ans *= s[i];
+        ans %= MOD;
+    }
+
+    cout << ans << endl;
     return 0;
+
 }
