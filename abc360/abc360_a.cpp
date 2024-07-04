@@ -20,36 +20,15 @@ struct INIT{
  }
 }INIT;
 
-ll n, l, k;
-ll a[1<<18];
-
-bool solved(ll mid){
-    ll cnt = 0;
-    ll pre = 0;
-    rep(i, 1, n+1){
-        if(a[i] - pre >= mid && l - a[i] >= mid){
-            cnt++;
-            pre = a[i];
-        }
+int main() {
+    string s;
+    cin >> s;
+    int x, y;
+    rep(i, 3){
+        if(s[i] == 'R') x = i;
+        if(s[i] == 'M') y = i;
     }
-    if(cnt >= k) return true;
-    else return false;
-}
-
-int main(){
-    cin >> n >> l >> k;
-    rep(i, n) cin >> a[i+1];
-
-    int left = -1;
-    int right = l+1;
-
-    //答えで二分探索
-    while(right - left > 1){
-        ll mid = left + (right-left)/2;
-
-        if(solved(mid) == false) right = mid;
-        else left = mid;
-    }
-    cout << left << endl;
+    if(x < y) cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }

@@ -20,36 +20,29 @@ struct INIT{
  }
 }INIT;
 
-ll n, l, k;
-ll a[1<<18];
+int main() {
+    int h, w;
+    cin >> h >> w;
+    vector<vector<int>> a(h, vector<int>(w, 0)), b(h, vector<int>(w, 0));
+    rep(i, h) rep(j, w) cin >> a[i][j];
+    rep(i, h) rep(j, w) cin >> b[i][j];
 
-bool solved(ll mid){
     ll cnt = 0;
-    ll pre = 0;
-    rep(i, 1, n+1){
-        if(a[i] - pre >= mid && l - a[i] >= mid){
-            cnt++;
-            pre = a[i];
+    rep(i, h-1){
+        rep(j, w-1){
+            int res = b[i][j] - a[i][j];
+            cnt += abs(res);
+            a[i][j] += res;
+            a[i][j+1] += res;
+            a[i+1][j] += res;
+            a[i+1][j+1] += res;
         }
     }
-    if(cnt >= k) return true;
-    else return false;
-}
-
-int main(){
-    cin >> n >> l >> k;
-    rep(i, n) cin >> a[i+1];
-
-    int left = -1;
-    int right = l+1;
-
-    //答えで二分探索
-    while(right - left > 1){
-        ll mid = left + (right-left)/2;
-
-        if(solved(mid) == false) right = mid;
-        else left = mid;
+    if(a[h-1][w-1] == b[h-1][w-1]){
+        cout << "Yes" << endl;
+        cout << cnt << endl;
+    }else{
+        cout << "No" << endl;
     }
-    cout << left << endl;
     return 0;
 }

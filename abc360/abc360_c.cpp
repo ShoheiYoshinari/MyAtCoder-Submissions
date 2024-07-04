@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -20,36 +21,26 @@ struct INIT{
  }
 }INIT;
 
-ll n, l, k;
-ll a[1<<18];
-
-bool solved(ll mid){
-    ll cnt = 0;
-    ll pre = 0;
-    rep(i, 1, n+1){
-        if(a[i] - pre >= mid && l - a[i] >= mid){
-            cnt++;
-            pre = a[i];
-        }
+int main() {
+    int n;
+    cin >> n;
+    int ans = 0;
+    vector<int> a(n), w(n);
+    rep(i, n) cin >> a[i];
+    rep(i, n){
+        cin >> w[i];
+        ans += w[i];
     }
-    if(cnt >= k) return true;
-    else return false;
-}
 
-int main(){
-    cin >> n >> l >> k;
-    rep(i, n) cin >> a[i+1];
+    vector<pair<int, int>> p;
+    rep(i, n) p.push_back({a[i], w[i]});
+    sort(all(p));
 
-    int left = -1;
-    int right = l+1;
-
-    //答えで二分探索
-    while(right - left > 1){
-        ll mid = left + (right-left)/2;
-
-        if(solved(mid) == false) right = mid;
-        else left = mid;
+    rep(i, n){
+        //cout << ans << endl;
+        if(p[i].first != p[i+1].first) ans -= p[i].second;
     }
-    cout << left << endl;
+    cout << ans << endl;
     return 0;
+
 }

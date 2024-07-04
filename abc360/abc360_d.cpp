@@ -20,36 +20,34 @@ struct INIT{
  }
 }INIT;
 
-ll n, l, k;
-ll a[1<<18];
+int main() {
+    ll n, t;
+    cin >> n >> t;
+    string s;
+    cin >> s;
+    vector<ll> x(n);
+    rep(i, n) cin >> x[i];
 
-bool solved(ll mid){
-    ll cnt = 0;
-    ll pre = 0;
-    rep(i, 1, n+1){
-        if(a[i] - pre >= mid && l - a[i] >= mid){
-            cnt++;
-            pre = a[i];
+    vector<pair<ll, ll>> e;
+    rep(i, n){
+        if(s[i] == '1') e.push_back({x[i], 1});
+        else e.push_back({x[i], 0});
+    }
+    sort(all(e));
+
+    vector<ll> tasu;
+    ll ans = 0;
+    rep(i, n){
+        if(e[i].second == 1){
+            tasu.push_back(e[i].first+t);
+        }else{
+            auto res = lower_bound(tasu.begin(), tasu.end(), e[i].first-t) - tasu.begin();
+            //cout << res << endl;
+            ans += tasu.size() - res;
+            //cout << ans << endl;
         }
     }
-    if(cnt >= k) return true;
-    else return false;
-}
-
-int main(){
-    cin >> n >> l >> k;
-    rep(i, n) cin >> a[i+1];
-
-    int left = -1;
-    int right = l+1;
-
-    //答えで二分探索
-    while(right - left > 1){
-        ll mid = left + (right-left)/2;
-
-        if(solved(mid) == false) right = mid;
-        else left = mid;
-    }
-    cout << left << endl;
+    cout << ans << endl;
     return 0;
+
 }

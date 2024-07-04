@@ -20,36 +20,23 @@ struct INIT{
  }
 }INIT;
 
-ll n, l, k;
-ll a[1<<18];
-
-bool solved(ll mid){
-    ll cnt = 0;
-    ll pre = 0;
-    rep(i, 1, n+1){
-        if(a[i] - pre >= mid && l - a[i] >= mid){
-            cnt++;
-            pre = a[i];
-        }
-    }
-    if(cnt >= k) return true;
-    else return false;
-}
-
-int main(){
-    cin >> n >> l >> k;
+int main() {
+    ll n, ans = 0;
+    cin >> n;
+    vector<ll> a(n+1), b(n+1), s(n+1, 0);
+    map<ll, ll> mp;
     rep(i, n) cin >> a[i+1];
 
-    int left = -1;
-    int right = l+1;
-
-    //答えで二分探索
-    while(right - left > 1){
-        ll mid = left + (right-left)/2;
-
-        if(solved(mid) == false) right = mid;
-        else left = mid;
+    rep(i, 1, n+1){
+        if(i%2 == 1) b[i] = a[i];
+        else b[i] = -a[i];
+        s[i] = s[i-1] + b[i];
     }
-    cout << left << endl;
+
+    rep(i, n+1){
+        ans += mp[s[i]];
+        mp[s[i]] += 1;
+    }
+    cout << ans << endl;
     return 0;
 }

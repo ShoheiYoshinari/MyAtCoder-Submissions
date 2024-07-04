@@ -20,36 +20,21 @@ struct INIT{
  }
 }INIT;
 
-ll n, l, k;
-ll a[1<<18];
+int main() {
+    ll n;
+    string s;
+    cin >> n >> s;
 
-bool solved(ll mid){
-    ll cnt = 0;
-    ll pre = 0;
-    rep(i, 1, n+1){
-        if(a[i] - pre >= mid && l - a[i] >= mid){
-            cnt++;
-            pre = a[i];
+    ll ans = n*(n-1)/2;
+    vector<pair<char, ll>> r;
+    rep(i, n){
+        if(r.empty() || r.back().first != s[i]){
+            r.push_back({s[i], 1});
+        }else{
+            r.back().second++;
         }
     }
-    if(cnt >= k) return true;
-    else return false;
-}
-
-int main(){
-    cin >> n >> l >> k;
-    rep(i, n) cin >> a[i+1];
-
-    int left = -1;
-    int right = l+1;
-
-    //答えで二分探索
-    while(right - left > 1){
-        ll mid = left + (right-left)/2;
-
-        if(solved(mid) == false) right = mid;
-        else left = mid;
-    }
-    cout << left << endl;
+    for(auto [c, num] : r) ans -= num*(num-1)/2;
+    cout << ans << endl;
     return 0;
 }

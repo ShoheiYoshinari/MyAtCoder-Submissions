@@ -20,36 +20,18 @@ struct INIT{
  }
 }INIT;
 
-ll n, l, k;
-ll a[1<<18];
-
-bool solved(ll mid){
-    ll cnt = 0;
-    ll pre = 0;
-    rep(i, 1, n+1){
-        if(a[i] - pre >= mid && l - a[i] >= mid){
-            cnt++;
-            pre = a[i];
-        }
+int main() {
+    ll n, m;
+    cin >> n >> m;
+    ll edge = 2*n + 2*m - 4;
+    if(n == 1 && m == 1){
+        cout << 1 << endl;
+    }else if(n == 1){
+        cout << m - 2 << endl;
+    }else if(m == 1){
+        cout << n - 2 << endl;
+    }else{
+        cout << n*m - edge << endl;
     }
-    if(cnt >= k) return true;
-    else return false;
-}
-
-int main(){
-    cin >> n >> l >> k;
-    rep(i, n) cin >> a[i+1];
-
-    int left = -1;
-    int right = l+1;
-
-    //答えで二分探索
-    while(right - left > 1){
-        ll mid = left + (right-left)/2;
-
-        if(solved(mid) == false) right = mid;
-        else left = mid;
-    }
-    cout << left << endl;
     return 0;
 }

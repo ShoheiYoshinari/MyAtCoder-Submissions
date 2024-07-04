@@ -20,36 +20,40 @@ struct INIT{
  }
 }INIT;
 
-ll n, l, k;
-ll a[1<<18];
+int main() {
+    ll n;
+    cin >> n;
+    ll sum = 0;
+    vector<ll> a(n*2);
+    rep(i, n){
+        cin >> a[i];
+        sum += a[i];
+    }
+    //cout << sum << endl;
+    rep(i, n) a[n+i] = a[i];
 
-bool solved(ll mid){
-    ll cnt = 0;
-    ll pre = 0;
-    rep(i, 1, n+1){
-        if(a[i] - pre >= mid && l - a[i] >= mid){
-            cnt++;
-            pre = a[i];
+    bool isok = false;
+    if(sum%10 != 0){
+        cout << "No" << endl;
+        return 0;
+    }
+    ll w10 = sum/10;
+    ll res = 0;
+    ll pos_back = 0;
+    rep(i, n*2){
+        //cout << res << endl;
+        res += a[i];
+        while(true){
+            if(res > w10){
+                res -= a[pos_back];
+                pos_back++;
+            }else break;
+        }
+        if(res == w10){
+            isok = true;
+            break;
         }
     }
-    if(cnt >= k) return true;
-    else return false;
-}
-
-int main(){
-    cin >> n >> l >> k;
-    rep(i, n) cin >> a[i+1];
-
-    int left = -1;
-    int right = l+1;
-
-    //答えで二分探索
-    while(right - left > 1){
-        ll mid = left + (right-left)/2;
-
-        if(solved(mid) == false) right = mid;
-        else left = mid;
-    }
-    cout << left << endl;
+    cout << (isok ? "Yes" : "No") << endl;
     return 0;
 }

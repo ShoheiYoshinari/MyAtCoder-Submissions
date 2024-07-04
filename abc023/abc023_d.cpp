@@ -20,36 +20,38 @@ struct INIT{
  }
 }INIT;
 
-ll n, l, k;
-ll a[1<<18];
+ll n;
+ll h[1<<18], s[1<<18];
 
 bool solved(ll mid){
-    ll cnt = 0;
-    ll pre = 0;
-    rep(i, 1, n+1){
-        if(a[i] - pre >= mid && l - a[i] >= mid){
-            cnt++;
-            pre = a[i];
-        }
+    vector<long double> timer(n);
+    rep(i, n){
+        timer[i] = ((long double)(mid - h[i])/s[i]);
+        //cout << timer[i] << ' ';
     }
-    if(cnt >= k) return true;
+    //cout << endl;
+    sort(all(timer));
+    bool isok = true;
+    rep(i, n){
+        if(i > timer[i]) isok = false;
+    }
+    if(isok) return true;
     else return false;
 }
 
 int main(){
-    cin >> n >> l >> k;
-    rep(i, n) cin >> a[i+1];
+    cin >> n;
+    rep(i, n) cin >> h[i] >> s[i];
 
-    int left = -1;
-    int right = l+1;
+    ll left =  n;
+    ll right = 1e18;
 
-    //答えで二分探索
     while(right - left > 1){
         ll mid = left + (right-left)/2;
 
-        if(solved(mid) == false) right = mid;
-        else left = mid;
+        if(solved(mid) == false) left = mid;
+        else right = mid;
     }
-    cout << left << endl;
+    cout << right << endl;
     return 0;
 }
