@@ -21,22 +21,20 @@ struct INIT{
 }INIT;
 
 int main() {
-    int n, m;
-    cin >> n >> m;
+    ll n;
+    cin >> n;
+    vector<ll> a(n), b(n);
+    rep(i, n) cin >> a[i] >> b[i];
 
-    vector<int> s(1e5+1, 0);
-    rep(i, m){
-        int l, m;
-        cin >> l >> m;
-        s[l]++;
-        s[m+1]--;
+    vector<ll> s(1e6+1, 0);
+    rep(i, n){
+        s[a[i]]++;
+        s[b[i]+1]--;
     }
-    rep(i, 1, n+1) s[i] += s[i-1];
+    rep(i, 1, 1e6+1) s[i] += s[i-1];
 
-    int cnt = 0;
-    rep(i, 0, 1e5+1){
-        if(s[i] == m) cnt++;
-    }
-    cout << cnt << endl;
+    ll ans = -1;
+    rep(i, 0, 1e6+1) chmax(ans, s[i]);
+    cout << ans << endl;
     return 0;
 }

@@ -20,23 +20,41 @@ struct INIT{
  }
 }INIT;
 
+vector<vector<int>> s(1009, vector<int> (1009, 0));
 int main() {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
 
-    vector<int> s(1e5+1, 0);
-    rep(i, m){
-        int l, m;
-        cin >> l >> m;
-        s[l]++;
-        s[m+1]--;
+    rep(i, n){
+        int lx, ly, rx, ry;
+        cin >> lx >> ly >> rx >> ry;
+        s[lx][ly]++;
+        s[lx][ry]--;
+        s[rx][ly]--;
+        s[rx][ry]++;
     }
-    rep(i, 1, n+1) s[i] += s[i-1];
 
-    int cnt = 0;
-    rep(i, 0, 1e5+1){
-        if(s[i] == m) cnt++;
+    rep(i, 0, 1009){
+        rep(j, 1, 1009){
+            s[i][j] += s[i][j-1];
+        }
     }
-    cout << cnt << endl;
+    rep(i, 1, 1009){
+        rep(j, 0, 1009){
+            s[i][j] += s[i-1][j];
+        }
+    }
+
+    map<int, int> mp;
+    rep(i, 0, 1001){
+        rep(j, 0, 1001){
+            mp[s[i][j]]++;
+        }
+    }
+
+    rep(i, 1, n+1){
+        cout << mp[i] << endl;
+    }
     return 0;
+
 }

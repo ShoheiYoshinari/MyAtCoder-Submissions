@@ -21,22 +21,14 @@ struct INIT{
 }INIT;
 
 int main() {
-    int n, m;
-    cin >> n >> m;
+    int n, k, x;
+    cin >> n >> k >> x;
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
 
-    vector<int> s(1e5+1, 0);
-    rep(i, m){
-        int l, m;
-        cin >> l >> m;
-        s[l]++;
-        s[m+1]--;
+    rep(i, n){
+        cout << a[i] << ' ';
+        if(i == k-1) cout << x << ' ';
     }
-    rep(i, 1, n+1) s[i] += s[i-1];
-
-    int cnt = 0;
-    rep(i, 0, 1e5+1){
-        if(s[i] == m) cnt++;
-    }
-    cout << cnt << endl;
-    return 0;
+    cout << endl;
 }

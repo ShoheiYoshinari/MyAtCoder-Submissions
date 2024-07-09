@@ -20,23 +20,43 @@ struct INIT{
  }
 }INIT;
 
+class UnionFind {
+public:
+	vector<int> par;
+
+	void init(int sz) {
+		par.resize(sz, -1);
+	}
+	int root(int pos) {
+		if (par[pos] == -1) return pos;
+		par[pos] = root(par[pos]);
+		return par[pos];
+	}
+	void unite(int u, int v) {
+		u = root(u); v = root(v);
+		if (u == v) return;
+		par[u] = v;
+	}
+	bool same(int u, int v) {
+		if (root(u) == root(v)) return true;
+		return false;
+	}
+};
+
+int n, q;
+UnionFind uf;
+
+
 int main() {
-    int n, m;
-    cin >> n >> m;
-
-    vector<int> s(1e5+1, 0);
-    rep(i, m){
-        int l, m;
-        cin >> l >> m;
-        s[l]++;
-        s[m+1]--;
+    cin >> n >> q;
+    uf.init(n);
+    rep(i, q){
+        int p, a, b;
+        cin >> p >> a >> b;
+        if(p == 0){
+            uf.unite(a, b);
+        }else if(p == 1){
+            cout << (uf.same(a, b) ? "Yes" : "No") << endl; 
+        }
     }
-    rep(i, 1, n+1) s[i] += s[i-1];
-
-    int cnt = 0;
-    rep(i, 0, 1e5+1){
-        if(s[i] == m) cnt++;
-    }
-    cout << cnt << endl;
-    return 0;
 }
