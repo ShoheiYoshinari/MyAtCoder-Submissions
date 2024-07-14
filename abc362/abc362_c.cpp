@@ -20,27 +20,43 @@ struct INIT{
  }
 }INIT;
 
-const int pin = 1000;
-
-int main() {
+int main(){
     ll n;
-    string s;
-    cin >> n >> s;
+    cin >> n;
+    vector<ll> l(n), r(n);
+    rep(i, n) cin >> l[i] >> r[i];
 
-    ll cnt = 0;
-    rep(i, pin){
-        string str = to_string(i);
-        if(str.size() == 1) str = "00" + str;
-        if(str.size() == 2) str = "0" + str;
-        ll pos = 0;
-        rep(j, n){
-            if(s[j] == str[pos]) pos++;
-            if(pos == 3){
-                cnt++;
-                break;
-            }
-        }
+    ll sum = 0;
+    rep(i, n) sum += l[i];
+
+    if(sum > 0){
+        cout << "No" << endl;
+        return 0;
     }
-    cout << cnt << endl;
+
+    ll pos = 0;
+    while(true){
+        sum += (r[pos] - l[pos]);
+        if(sum >= 0) break;
+        if(pos == n-1) break;
+        pos++;
+    }
+    //cout << sum << endl;
+    if(sum < 0){
+        cout << "No" << endl;
+    }else{
+        cout << "Yes" << endl;
+        bool flag = true;
+        rep(i, n){
+            if(i == pos){
+                cout << r[i] - sum << " ";
+                flag = false;
+                continue;
+            }
+            if(flag) cout << r[i] << " ";
+            else cout << l[i] << " ";
+        }
+        cout << endl;
+    }
     return 0;
 }

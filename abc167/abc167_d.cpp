@@ -20,27 +20,36 @@ struct INIT{
  }
 }INIT;
 
-const int pin = 1000;
-
 int main() {
-    ll n;
-    string s;
-    cin >> n >> s;
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> a(n+1);
+    rep(i, 1, n+1) cin >> a[i];
 
+    ll now = 1;
     ll cnt = 0;
-    rep(i, pin){
-        string str = to_string(i);
-        if(str.size() == 1) str = "00" + str;
-        if(str.size() == 2) str = "0" + str;
-        ll pos = 0;
-        rep(j, n){
-            if(s[j] == str[pos]) pos++;
-            if(pos == 3){
-                cnt++;
-                break;
-            }
+    vector<ll> seen(n+1, -1);
+    while(true){
+        //cout << now << endl;
+        if(seen[now] != -1) break;
+        seen[now] = cnt;
+        now = a[now];
+        cnt++;
+    }
+
+    ll cycle = cnt - seen[now];
+    //cout << cycle << endl;
+    if(k >= seen[now]){
+        k = (k - seen[now])%cycle + seen[now];
+    }
+    //cout << k << endl;
+
+    ll ans = -1;
+    rep(i, 1, n+1){
+        if(seen[i] == k){
+            ans = i;
         }
     }
-    cout << cnt << endl;
+    cout << ans << endl;
     return 0;
 }

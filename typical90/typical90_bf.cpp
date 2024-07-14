@@ -20,27 +20,46 @@ struct INIT{
  }
 }INIT;
 
-const int pin = 1000;
+ll digsum(ll n) {
+    int res = 0;
+    while(n > 0) {
+       res += n%10;
+       n /= 10;
+    }
+return res;
+}
+
+const ll mod = 100000;
+ll n, k;
 
 int main() {
-    ll n;
-    string s;
-    cin >> n >> s;
+    cin >> n >> k;
+    vector<ll> cal(mod);
+    rep(i, mod){
+        cal[i] = (i + digsum(i))%mod;
+    }
 
+    vector<int> seen(mod, -1);
+    ll now = n;
     ll cnt = 0;
-    rep(i, pin){
-        string str = to_string(i);
-        if(str.size() == 1) str = "00" + str;
-        if(str.size() == 2) str = "0" + str;
-        ll pos = 0;
-        rep(j, n){
-            if(s[j] == str[pos]) pos++;
-            if(pos == 3){
-                cnt++;
-                break;
-            }
+    while(true){
+        if(seen[now] != -1) break;
+        seen[now] = cnt;
+        now = cal[now];
+        cnt++;
+    }
+
+    ll cycle = cnt - seen[now];
+    if(k >= seen[now]){
+        k = (k - seen[now])%cycle + seen[now];
+    }
+    ll ans = -1;
+    rep(i, mod){
+        if(seen[i] == k){
+            ans = i;
         }
     }
-    cout << cnt << endl;
+    cout << ans << endl;
     return 0;
+
 }

@@ -20,27 +20,27 @@ struct INIT{
  }
 }INIT;
 
-const int pin = 1000;
+bool search(int x1, int x2, int x3, int y1, int y2, int y3){
+    int a = x1 - x2;
+    int b = x1 - x3;
+    int c = y1 - y2;
+    int d = y1 - y3;
 
-int main() {
-    ll n;
-    string s;
-    cin >> n >> s;
+    return a*b+c*d == 0;
+}
 
-    ll cnt = 0;
-    rep(i, pin){
-        string str = to_string(i);
-        if(str.size() == 1) str = "00" + str;
-        if(str.size() == 2) str = "0" + str;
-        ll pos = 0;
-        rep(j, n){
-            if(s[j] == str[pos]) pos++;
-            if(pos == 3){
-                cnt++;
-                break;
-            }
+int main(){
+    int x[3];
+    int y[3];
+    rep(i, 3) cin >> x[i] >> y[i];
+
+    rep(i, 3){
+        if(search(x[i%3], x[(i+1)%3], x[(i+2)%3], y[i%3], y[(i+1)%3], y[(i+2)%3])){
+            cout << "Yes" << endl;
+            return 0;
         }
     }
-    cout << cnt << endl;
-    return 0;
+    cout << "No" << endl;
+        return 0;
+
 }

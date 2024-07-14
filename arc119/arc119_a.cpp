@@ -24,18 +24,17 @@ int main() {
     ll n;
     cin >> n;
 
-    ll a = 0, b = 0, c = 0;
-    ll bb = 0;
+    ll p2 = 1;
+    ll a = 0, c = 0, b = 0;
     ll ans = 1e18;
     while(true){
-        bb = (1ll<<b);
-        a = n/bb;
-        c = n - a*bb;
+        a = n/p2;
+        c = n - a*p2;
         chmin(ans, a+b+c);
-        if(n/2 < bb) break;
+        if(p2 > n/2) break;
+        p2 *= 2ll;
         b++;
     }
     cout << ans << endl;
     return 0;
-
 }

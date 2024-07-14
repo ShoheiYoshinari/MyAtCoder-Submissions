@@ -20,27 +20,26 @@ struct INIT{
  }
 }INIT;
 
-const int pin = 1000;
-
 int main() {
-    ll n;
-    string s;
-    cin >> n >> s;
+    ll t;
+    cin >> t;
+    rep(i, t){
+        ll n;
+        cin >> n;
 
-    ll cnt = 0;
-    rep(i, pin){
-        string str = to_string(i);
-        if(str.size() == 1) str = "00" + str;
-        if(str.size() == 2) str = "0" + str;
-        ll pos = 0;
-        rep(j, n){
-            if(s[j] == str[pos]) pos++;
-            if(pos == 3){
-                cnt++;
-                break;
+        ll p, q;
+        for(ll i = 2; i*i*i <= n; i++){
+            if(n%i != 0) continue;
+            if((n/i)%i == 0){
+                p = i;
+                q = n/i/i;
+            }else{
+                q = i;
+                p = (ll)(sqrt(n/i));
             }
+            break;
         }
+        cout << p << ' ' << q << endl;
     }
-    cout << cnt << endl;
     return 0;
 }

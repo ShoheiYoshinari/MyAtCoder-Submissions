@@ -20,27 +20,13 @@ struct INIT{
  }
 }INIT;
 
-const int pin = 1000;
-
 int main() {
-    ll n;
+    int a, b, c;
+    cin >> a >> b >> c;
     string s;
-    cin >> n >> s;
-
-    ll cnt = 0;
-    rep(i, pin){
-        string str = to_string(i);
-        if(str.size() == 1) str = "00" + str;
-        if(str.size() == 2) str = "0" + str;
-        ll pos = 0;
-        rep(j, n){
-            if(s[j] == str[pos]) pos++;
-            if(pos == 3){
-                cnt++;
-                break;
-            }
-        }
-    }
-    cout << cnt << endl;
+    cin >> s;
+    if(s == "Red") cout << min(b, c) << endl;
+    else if(s == "Green") cout << min(a, c) << endl;
+    else cout << min(a, b) << endl;
     return 0;
 }

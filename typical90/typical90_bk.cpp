@@ -20,27 +20,44 @@ struct INIT{
  }
 }INIT;
 
-const int pin = 1000;
+ll h, w;
+ll p[19][100009];
+
+int max_same(vector<int> cho){
+    map<int, int> mp;
+    int ret = 0;
+    rep(i, cho.size()){
+        mp[cho[i]]++;
+        chmax(ret, mp[cho[i]]);
+    }
+    return ret;
+}
 
 int main() {
-    ll n;
-    string s;
-    cin >> n >> s;
+    cin >> h >> w;
+    rep(i, h) rep(j, w) cin >> p[i][j];
 
-    ll cnt = 0;
-    rep(i, pin){
-        string str = to_string(i);
-        if(str.size() == 1) str = "00" + str;
-        if(str.size() == 2) str = "0" + str;
-        ll pos = 0;
-        rep(j, n){
-            if(s[j] == str[pos]) pos++;
-            if(pos == 3){
-                cnt++;
-                break;
+    int ans = 0;
+    rep(i, (1<<h)){
+        vector<int> cho;
+        rep(j, w){
+            int idx = -1;
+            bool flag = true;
+            rep(k, h){
+                if((i&(1<<k)) == 0) continue;
+                if(idx == -1) idx = p[k][j];
+                else if(idx != p[k][j]) flag = false;
             }
+            if(flag) cho.push_back(idx);
         }
+
+        int cnth = 0, cntw = max_same(cho);
+        rep(j, h){
+        if((i&(1<<j)) != 0) cnth++;
+        }
+        //cout << cnth << " " << cntw << endl;
+        chmax(ans, cnth*cntw);
     }
-    cout << cnt << endl;
+    cout << ans << endl;
     return 0;
 }
