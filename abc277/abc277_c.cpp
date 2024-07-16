@@ -1,37 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
-    using Graph = map<int, vector<int>>;
-    int main() {
-        // 辺数
-        int M; cin >> M;
-        // グラフ入力受取 (ここでは無向グラフを想定)
-        Graph G;
-        for (int i = 0; i < M; ++i) {
-            int a, b;
-            cin >> a >> b;
-            G[a].push_back(b);
-            G[b].push_back(a);
+using ll = long long;
+using ull = unsigned long long;
+const double pi = acos(-1);
+template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
+template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
+#define OVERLOAD_REP(_1, _2, _3, name, ...) name
+#define REP1(i, n) for (auto i = std::decay_t<decltype(n)>{}; (i) != (n); ++(i))
+#define REP2(i, l, r) for (auto i = (l); (i) != (r); ++(i))
+#define rep(...) OVERLOAD_REP(__VA_ARGS__, REP2, REP1)(__VA_ARGS__)
+#define all(p) (p).begin(), (p).end()
+#define exists(c, e) ((c).find(e) != (c).end())
+
+struct INIT{
+ INIT(){
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(0);
+  cout << fixed << setprecision(20);
+ }
+}INIT;
+
+using Graph = map<ll, vector<ll>>;
+ll n;
+set<ll> st;
+
+void BFS(Graph &G, ll f){
+    queue<ll> que;
+    que.push(f);
+    st.insert(f);
+    
+    while(!que.empty()){
+        ll v = que.front();
+        que.pop();
+        for(ll nv : G[v]){
+            if(st.count(nv)) continue;
+            que.push(nv);
+            st.insert(nv);
         }
-        // BFS のためのデータ構造
-        queue<int> que;
-        // 初期条件 (頂点 1 を初期ノードとする)
-        que.push(1); // 1 を橙色頂点にする
-        set<int> S;
-        S.insert(1);
-        // BFS 開始 (キューが空になるまで探索を行う)
-        while (!que.empty()) {
-            int v = que.front(); // キューから先頭頂点を取り出す
-            que.pop();
-            // v から辿れる頂点をすべて調べる
-            for (int nv : G[v]) {
-                if (!S.count(nv)){ // 頂点nvがセットの要素にないとき
-                // 新たな白色頂点 nv についてキューに追加してセットに追加
-                que.push(nv);
-                S.insert(nv);
-            }
-        }
-        }
-        // 結果出力
-        cout << *S.rbegin() << endl;
     }
+    return ;
+}
+
+int main() {
+    cin >> n;
+    Graph G;
+    rep(i, n){
+        ll a, b;
+        cin >> a >> b;
+        G[a].push_back(b);
+        G[b].push_back(a);
+    }
+
+    BFS(G, 1);
+    cout << *st.rbegin() << endl;
+    return 0;
+    
+}
