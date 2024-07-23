@@ -20,37 +20,36 @@ struct INIT{
  }
 }INIT;
 
-const int MAX = 100009;
+const ll MAX = 1000009;
 
-bool isPrime(int x){
-   int i;
-   if(x < 2)return 0;
-   else if(x == 2) return 1;
-   if(x%2 == 0) return 0;
-   for(i = 3; i*i <= x; i += 2) if(x%i == 0) return 0;
-   return 1;
+ll gcd(ll a, ll b) {
+    if(b == 0) return a;
+    return b ? gcd(b, a%b) : a;
 }
 
 int main() {
-    int q;
-    cin >> q;
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    rep(i, n) cin >> a[i];
 
-    int p[MAX];
-    rep(i, 1, MAX){
-        if(isPrime(i) && isPrime((i+1)/2)) p[i]++;
+    vector<ll> num(MAX, 0);
+    rep(i, n) num[a[i]]++;
+    bool coprime = true;
+    for(int a = 2; a < MAX; a++){
+        ll sum = 0;
+        for(int b = a; b < MAX; b+=a) sum += num[b];
+        if(sum > 1) coprime = false;
+    }
+    if(coprime){
+        cout << "pairwise coprime" << endl;
+        return 0;
     }
 
-    int s[MAX];
-    s[0] = 0;
-    rep(i, 1, MAX){
-        s[i] = s[i-1] + p[i];
-        //cout << s[i] << endl;
-    }
-    
-    rep(i, q){
-        int l, r;
-        cin >> l >> r;
-        cout << s[r] - s[l-1] << endl;
-    }
+    ll g = 0;
+    rep(i, n) g = gcd(g, a[i]);
+    if(g == 1) cout << "setwise coprime" << endl;
+    else cout << "not coprime" << endl;
     return 0;
+
 }

@@ -20,37 +20,21 @@ struct INIT{
  }
 }INIT;
 
-const int MAX = 100009;
+int cnt[1 << 24];
 
-bool isPrime(int x){
-   int i;
-   if(x < 2)return 0;
-   else if(x == 2) return 1;
-   if(x%2 == 0) return 0;
-   for(i = 3; i*i <= x; i += 2) if(x%i == 0) return 0;
-   return 1;
-}
+int main(){
+    int n, k;
+    cin >> n >> k;
 
-int main() {
-    int q;
-    cin >> q;
-
-    int p[MAX];
-    rep(i, 1, MAX){
-        if(isPrime(i) && isPrime((i+1)/2)) p[i]++;
+    for(int i = 2; i <= n; i++){
+        if(cnt[i] >= 1) continue;
+        for(int j = i; j <= n; j+=i) cnt[j]++;
     }
 
-    int s[MAX];
-    s[0] = 0;
-    rep(i, 1, MAX){
-        s[i] = s[i-1] + p[i];
-        //cout << s[i] << endl;
+    int ans = 0;
+    for(int i = 1; i <= n; i++){
+        if(cnt[i] >= k) ans++;
     }
-    
-    rep(i, q){
-        int l, r;
-        cin >> l >> r;
-        cout << s[r] - s[l-1] << endl;
-    }
+    cout << ans << endl;
     return 0;
 }

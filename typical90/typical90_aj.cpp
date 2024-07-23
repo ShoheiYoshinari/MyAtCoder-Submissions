@@ -20,37 +20,34 @@ struct INIT{
  }
 }INIT;
 
-const int MAX = 100009;
-
-bool isPrime(int x){
-   int i;
-   if(x < 2)return 0;
-   else if(x == 2) return 1;
-   if(x%2 == 0) return 0;
-   for(i = 3; i*i <= x; i += 2) if(x%i == 0) return 0;
-   return 1;
-}
-
 int main() {
-    int q;
-    cin >> q;
+    ll n, q;
+    cin >> n >> q;
+    vector<ll> x(n), y(n), t(q);
+    rep(i, n) cin >> x[i] >> y[i];
+    rep(i, q) cin >> t[i], t[i]--;
 
-    int p[MAX];
-    rep(i, 1, MAX){
-        if(isPrime(i) && isPrime((i+1)/2)) p[i]++;
+    ll minx = (1ll<<60);
+    ll miny = (1ll<<60);
+    ll maxx = -(1ll<<60);
+    ll maxy = -(1ll<<60);
+    rep(i, n){
+        ll p1 = x[i] + y[i];
+        ll p2 = y[i] - x[i];
+        x[i] = p1;
+        y[i] = p2;
+        chmin(minx, x[i]);
+        chmin(miny, y[i]);
+        chmax(maxx, x[i]);
+        chmax(maxy, y[i]);
     }
 
-    int s[MAX];
-    s[0] = 0;
-    rep(i, 1, MAX){
-        s[i] = s[i-1] + p[i];
-        //cout << s[i] << endl;
-    }
-    
     rep(i, q){
-        int l, r;
-        cin >> l >> r;
-        cout << s[r] - s[l-1] << endl;
+        ll r1 = abs(x[t[i]] - minx);
+        ll r2 = abs(y[t[i]] - miny);
+        ll r3 = abs(x[t[i]] - maxx);
+        ll r4 = abs(y[t[i]] - maxy);
+        cout << max({r1, r2, r3, r4}) << endl;
     }
     return 0;
 }
