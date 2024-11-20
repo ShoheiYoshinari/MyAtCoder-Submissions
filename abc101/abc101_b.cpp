@@ -22,11 +22,19 @@ struct INIT{
  }
 }INIT;
 
-int main(){
-    int s[3], e[3];
-    rep(i, 3) cin >> s[i] >> e[i];
+int digsum(int n) {
+    int res = 0;
+    while(n > 0) {
+       res += n%10;
+       n /= 10;
+    }
+return res;
+}
+int main() {
+    int n;
+    cin >> n;
+    if(n%digsum(n) == 0) cout << "Yes" << endl;
+    else cout << "No" << endl;
+    return 0;
 
-    int sum = 0;
-    rep(i, 3) sum += s[i] * e[i] / 10;
-    cout << sum << endl;
 }

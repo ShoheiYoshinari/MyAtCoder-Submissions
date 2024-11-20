@@ -21,12 +21,29 @@ struct INIT{
   cout << fixed << setprecision(20);
  }
 }INIT;
+int main() {
+    int v;
+    int a[3];
+    cin >> v;
+    rep(i, 3) cin >> a[i];
 
-int main(){
-    int s[3], e[3];
-    rep(i, 3) cin >> s[i] >> e[i];
-
-    int sum = 0;
-    rep(i, 3) sum += s[i] * e[i] / 10;
-    cout << sum << endl;
+    while(1){
+        bool f = false;
+        rep(i, 3){
+            v -= a[i];
+            if(v < 0){
+                f = true;
+                if(i == 0){
+                    cout << "F" << endl;
+                }else if(i == 1){
+                    cout << "M" << endl;
+                }else{
+                    cout << "T" << endl;
+                }
+                break;
+            }
+        }
+        if(f) break;
+    }
+    return 0;
 }

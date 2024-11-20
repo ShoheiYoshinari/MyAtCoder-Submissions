@@ -21,6 +21,7 @@ struct INIT{
   cout << fixed << setprecision(20);
  }
 }INIT;
+
 int main(){
     int n;
     cin >> n;
