@@ -21,18 +21,22 @@ struct INIT{
   cout << fixed << setprecision(20);
  }
 }INIT;
-int main() {
-    int n; cin >> n;
 
-    map<string, int> mp;
-    vector<int> ans;
-    rep(i, n){
-        string s; cin >> s;
-        if(mp[s] == 0){
-            mp[s]++;
-            ans.push_back(i+1);
-        }
+int main(){
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+
+    bool ok = true;
+    if(n%2 == 0) ok = false;
+    rep(i, (n+1)/2-1){
+        if(s[i] != '1') ok = false;
     }
-    for(auto a : ans) cout << a << endl;
+    if(s[(n+1)/2-1] != '/') ok = false;
+    rep(i, (n+1)/2, n){
+        if(s[i] != '2') ok = false;
+    }
+    cout << (ok ? "Yes" : "No") << endl;
     return 0;
 }
