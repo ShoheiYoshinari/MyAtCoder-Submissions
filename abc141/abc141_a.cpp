@@ -23,23 +23,9 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int n, q;
-    cin >> n >> q;
-    vector<int> a(n);
-    rep(i, n) cin >> a[i];
-
-    int s = 0;
-    while(q--){
-        int t, x, y;
-        cin >> t >> x >> y;
-        x--, y--;
-        if(t == 1){
-            swap(a[(x+s)%n], a[(y+s)%n]);
-        }else if(t == 2){
-            s = (s + n - 1)%n;
-        }else{
-            cout << a[(x+s)%n] << endl;
-        }
-    }
+    string s; cin >> s;
+    if(s == "Sunny") cout << "Cloudy" << endl;
+    else if(s == "Cloudy") cout << "Rainy" <<endl;
+    else cout << "Sunny" << endl;
     return 0;
 }

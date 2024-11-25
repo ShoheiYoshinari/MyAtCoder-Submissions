@@ -23,23 +23,22 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int n, q;
-    cin >> n >> q;
-    vector<int> a(n);
-    rep(i, n) cin >> a[i];
-
-    int s = 0;
-    while(q--){
-        int t, x, y;
-        cin >> t >> x >> y;
-        x--, y--;
-        if(t == 1){
-            swap(a[(x+s)%n], a[(y+s)%n]);
-        }else if(t == 2){
-            s = (s + n - 1)%n;
-        }else{
-            cout << a[(x+s)%n] << endl;
-        }
+    ll n, m;
+    cin >> n >> m;
+    priority_queue<ll> q;
+    rep(i, n){
+        int a; cin >> a;
+        q.push(a);
     }
+
+    while(m--){
+        ll a = q.top(); q.pop();
+        q.push(a/2);
+    }
+    ll ans = 0;
+    rep(i, n){
+        ans += q.top(); q.pop();
+    }
+    cout << ans << endl;
     return 0;
 }
