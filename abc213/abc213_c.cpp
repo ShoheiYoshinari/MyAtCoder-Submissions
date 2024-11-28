@@ -22,28 +22,22 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
+vector<int> compress(vector<int> a){
+    int n = a.size();
+    map<int, int> mp;
+    rep(i, n) mp[a[i]] = 0;
+    int id = 1;
+    for(auto& p : mp) p.second = id++;
+    rep(i, n) a[i] = mp[a[i]];
+    return a;
+}
 int main(){
-    ll n, q;
-    cin >> n >> q;
-    vector<ll> a(n), b(n);
-    rep(i, n) cin >> a[i];
-
-
-    ll ans = 0;
-    rep(i, 1, n){
-        ans += abs(a[i]-a[i-1]);
-        b[i] = a[i]-a[i-1];
-    }
-    while(q--){
-        ll l, r, v;
-        cin >> l >> r >> v;
-        l--;
-        ll mae = abs(b[l]) + abs(b[r]);
-        if(l != 0) b[l] += v;
-        if(r != n) b[r] -= v;
-        ll ato = abs(b[l]) + abs(b[r]);
-        ans += (ato - mae);
-        cout << ans << endl;
-    }
+    int h, w, n;
+    cin >> h >> w >> n;
+    vector<int> a(n), b(n);
+    rep(i, n) cin >> a[i] >> b[i];
+    a = compress(a);
+    b = compress(b);
+    rep(i, n) cout << a[i] << ' ' << b[i] << endl;
     return 0;
 }

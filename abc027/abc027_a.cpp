@@ -23,27 +23,15 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    ll n, q;
-    cin >> n >> q;
-    vector<ll> a(n), b(n);
-    rep(i, n) cin >> a[i];
-
-
-    ll ans = 0;
-    rep(i, 1, n){
-        ans += abs(a[i]-a[i-1]);
-        b[i] = a[i]-a[i-1];
+    map<int, int> mp;
+    rep(i, 3){
+        int a; cin >> a;
+        mp[a]++;
     }
-    while(q--){
-        ll l, r, v;
-        cin >> l >> r >> v;
-        l--;
-        ll mae = abs(b[l]) + abs(b[r]);
-        if(l != 0) b[l] += v;
-        if(r != n) b[r] -= v;
-        ll ato = abs(b[l]) + abs(b[r]);
-        ans += (ato - mae);
-        cout << ans << endl;
+    for(auto p : mp){
+        if(p.second != 2){
+            cout << p.first << endl;
+            return 0;
+        }
     }
-    return 0;
 }
