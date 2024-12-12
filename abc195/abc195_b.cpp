@@ -22,40 +22,19 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-using Graph = vector<vector<int>>;
-
 int main(){
-    int r, c, sy, sx, gy, gx;
-    cin >> r >> c;
-    cin >> sy >> sx;
-    sy--, sx--;
-    cin >> gy >> gx;
-    gy--, gx--;
+    int a, b, w;
+    cin >> a >> b >> w;
 
-    vector<vector<char>> s(r, vector<char>(c));
-    rep(i, r) rep(j, c) cin >> s[i][j];
-
-    queue<pair<int, int>> que;
-    Graph dist(r, vector<int> (c, -1));
-
-    dist[sy][sx] = 0;
-    que.push({sy, sx});
-
-    while(!que.empty()){
-        auto [i, j] = que.front(); que.pop();
-
-        rep(dir, 4){
-            auto ny = i + dy[dir];
-            auto nx = j + dx[dir];
-
-            if(ny < 0 || ny >= r || nx < 0 || nx >= c) continue;
-            if(dist[ny][nx] != -1) continue;
-            if(s[ny][nx] != '.') continue;
-
-            dist[ny][nx] = dist[i][j] + 1;
-            que.push({ny, nx});
+    w *= 1000;
+    int min_cnt = 1e9, max_cnt = 0;
+    rep(i, (int)1e6+1){
+        if(a*i <= w && w <= b*i){
+            chmin(min_cnt, i);
+            chmax(max_cnt, i);
         }
     }
-    cout << dist[gy][gx] << endl;
+    if(max_cnt == 0) cout << "UNSATISFIABLE" << endl;
+    else cout << min_cnt << ' ' << max_cnt << endl;
     return 0;
 }

@@ -22,40 +22,11 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-using Graph = vector<vector<int>>;
-
 int main(){
-    int r, c, sy, sx, gy, gx;
-    cin >> r >> c;
-    cin >> sy >> sx;
-    sy--, sx--;
-    cin >> gy >> gx;
-    gy--, gx--;
+    int a; cin >> a;
 
-    vector<vector<char>> s(r, vector<char>(c));
-    rep(i, r) rep(j, c) cin >> s[i][j];
-
-    queue<pair<int, int>> que;
-    Graph dist(r, vector<int> (c, -1));
-
-    dist[sy][sx] = 0;
-    que.push({sy, sx});
-
-    while(!que.empty()){
-        auto [i, j] = que.front(); que.pop();
-
-        rep(dir, 4){
-            auto ny = i + dy[dir];
-            auto nx = j + dx[dir];
-
-            if(ny < 0 || ny >= r || nx < 0 || nx >= c) continue;
-            if(dist[ny][nx] != -1) continue;
-            if(s[ny][nx] != '.') continue;
-
-            dist[ny][nx] = dist[i][j] + 1;
-            que.push({ny, nx});
-        }
-    }
-    cout << dist[gy][gx] << endl;
+    int max_a = -1;
+    for(int i = 0; i <= a; i++) chmax(max_a, i*(a-i));
+    cout << max_a << endl;
     return 0;
 }

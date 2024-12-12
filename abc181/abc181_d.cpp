@@ -22,40 +22,40 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-using Graph = vector<vector<int>>;
+bool f(string s){
+    if(s.size() == 1){
+        if(s == "8") return 1;
+        else return 0;
+    }
+
+    if(s.size() == 2){
+        if(stoi(s)%8 == 0) return 1;
+        swap(s[0], s[1]);
+        if(stoi(s)%8 == 0) return 1;
+        return 0;
+    }
+
+    map<char, int> mp;
+    rep(i, s.size()){
+        mp[s[i]]++;
+    }
+    for(int i = 104; i < 1000; i += 8){
+        map<char, int> mp8;
+        bool flag = true;
+        string tmp = to_string(i);
+        rep(i, tmp.size()) mp8[tmp[i]]++;
+
+        for(auto& p8 : mp8){
+            if(p8.second > mp[p8.first]) flag = false;
+        }
+        if(flag) return 1;
+    }
+    return 0;
+}
 
 int main(){
-    int r, c, sy, sx, gy, gx;
-    cin >> r >> c;
-    cin >> sy >> sx;
-    sy--, sx--;
-    cin >> gy >> gx;
-    gy--, gx--;
-
-    vector<vector<char>> s(r, vector<char>(c));
-    rep(i, r) rep(j, c) cin >> s[i][j];
-
-    queue<pair<int, int>> que;
-    Graph dist(r, vector<int> (c, -1));
-
-    dist[sy][sx] = 0;
-    que.push({sy, sx});
-
-    while(!que.empty()){
-        auto [i, j] = que.front(); que.pop();
-
-        rep(dir, 4){
-            auto ny = i + dy[dir];
-            auto nx = j + dx[dir];
-
-            if(ny < 0 || ny >= r || nx < 0 || nx >= c) continue;
-            if(dist[ny][nx] != -1) continue;
-            if(s[ny][nx] != '.') continue;
-
-            dist[ny][nx] = dist[i][j] + 1;
-            que.push({ny, nx});
-        }
-    }
-    cout << dist[gy][gx] << endl;
+    string s;
+    cin >> s;
+    cout << (f(s) ? "Yes" : "No") << endl;
     return 0;
 }

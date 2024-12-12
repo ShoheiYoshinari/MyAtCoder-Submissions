@@ -22,40 +22,23 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-using Graph = vector<vector<int>>;
-
 int main(){
-    int r, c, sy, sx, gy, gx;
-    cin >> r >> c;
-    cin >> sy >> sx;
-    sy--, sx--;
-    cin >> gy >> gx;
-    gy--, gx--;
+    int n; cin >> n;
+    vector<int> a(n), b(n);
+    rep(i, n) cin >> a[i];
+    rep(i, n) cin >> b[i];
 
-    vector<vector<char>> s(r, vector<char>(c));
-    rep(i, r) rep(j, c) cin >> s[i][j];
-
-    queue<pair<int, int>> que;
-    Graph dist(r, vector<int> (c, -1));
-
-    dist[sy][sx] = 0;
-    que.push({sy, sx});
-
-    while(!que.empty()){
-        auto [i, j] = que.front(); que.pop();
-
-        rep(dir, 4){
-            auto ny = i + dy[dir];
-            auto nx = j + dx[dir];
-
-            if(ny < 0 || ny >= r || nx < 0 || nx >= c) continue;
-            if(dist[ny][nx] != -1) continue;
-            if(s[ny][nx] != '.') continue;
-
-            dist[ny][nx] = dist[i][j] + 1;
-            que.push({ny, nx});
+    int cnt_same = 0;
+    int cnt_dif = 0;
+    rep(i, n){
+        rep(j, n){
+            if(a[i] == b[j]){
+                if(i == j) cnt_same++;
+                else cnt_dif++;
+            }
         }
     }
-    cout << dist[gy][gx] << endl;
+    cout << cnt_same << endl;
+    cout << cnt_dif <<endl;
     return 0;
 }

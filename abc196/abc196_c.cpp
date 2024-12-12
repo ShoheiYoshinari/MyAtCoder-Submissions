@@ -22,40 +22,24 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-using Graph = vector<vector<int>>;
+ll skara(string s){
+    ll ans = 0;
+    rep(i, s.size()){
+        ans *= 10ll;
+        ans += (ll)(s[i] - '0');
+    }
+    return ans;
+}
 
 int main(){
-    int r, c, sy, sx, gy, gx;
-    cin >> r >> c;
-    cin >> sy >> sx;
-    sy--, sx--;
-    cin >> gy >> gx;
-    gy--, gx--;
+    ll n; cin >> n;
 
-    vector<vector<char>> s(r, vector<char>(c));
-    rep(i, r) rep(j, c) cin >> s[i][j];
-
-    queue<pair<int, int>> que;
-    Graph dist(r, vector<int> (c, -1));
-
-    dist[sy][sx] = 0;
-    que.push({sy, sx});
-
-    while(!que.empty()){
-        auto [i, j] = que.front(); que.pop();
-
-        rep(dir, 4){
-            auto ny = i + dy[dir];
-            auto nx = j + dx[dir];
-
-            if(ny < 0 || ny >= r || nx < 0 || nx >= c) continue;
-            if(dist[ny][nx] != -1) continue;
-            if(s[ny][nx] != '.') continue;
-
-            dist[ny][nx] = dist[i][j] + 1;
-            que.push({ny, nx});
-        }
+    int cnt = 0;
+    for(int i = 1; i <= n; i++){
+        string s = to_string(i) + to_string(i);
+        if((ll)skara(s) > n) break;
+        cnt++;
     }
-    cout << dist[gy][gx] << endl;
+    cout << cnt << endl;
     return 0;
 }

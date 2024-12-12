@@ -23,39 +23,49 @@ cout << fixed << setprecision(20);
 }INIT;
 
 using Graph = vector<vector<int>>;
+int main() {
+    int N, M; cin >> N >> M;
+    Graph G(N);
+    for (int i = 0; i < M; ++i) {
+        int a, b;
+        cin >> a >> b;
+        a--, b--;
+        G[a].push_back(b);
+        G[b].push_back(a);
+    }
 
-int main(){
-    int r, c, sy, sx, gy, gx;
-    cin >> r >> c;
-    cin >> sy >> sx;
-    sy--, sx--;
-    cin >> gy >> gx;
-    gy--, gx--;
+    if(M != N-1){
+        cout << "No" << endl;
+        return 0;
+    }
 
-    vector<vector<char>> s(r, vector<char>(c));
-    rep(i, r) rep(j, c) cin >> s[i][j];
-
-    queue<pair<int, int>> que;
-    Graph dist(r, vector<int> (c, -1));
-
-    dist[sy][sx] = 0;
-    que.push({sy, sx});
-
-    while(!que.empty()){
-        auto [i, j] = que.front(); que.pop();
-
-        rep(dir, 4){
-            auto ny = i + dy[dir];
-            auto nx = j + dx[dir];
-
-            if(ny < 0 || ny >= r || nx < 0 || nx >= c) continue;
-            if(dist[ny][nx] != -1) continue;
-            if(s[ny][nx] != '.') continue;
-
-            dist[ny][nx] = dist[i][j] + 1;
-            que.push({ny, nx});
+    rep(i, N){
+        if(G[i].size() > 2){
+            cout << "No" << endl;
+            return 0;
         }
     }
-    cout << dist[gy][gx] << endl;
+    
+    vector<int> dist(N, -1);
+    queue<int> que;
+    dist[0] = 0;
+    que.push(0);
+    while (!que.empty()) {
+        int v = que.front();
+        que.pop();
+        for (int nv : G[v]) {
+            if (dist[nv] != -1) continue;
+            dist[nv] = dist[v] + 1;
+            que.push(nv);
+        }
+    }
+
+    rep(i, N){
+        if(dist[i] == -1){
+            cout << "No" << endl;
+            return 0;
+        }
+    }
+    cout << "Yes" << endl;
     return 0;
 }

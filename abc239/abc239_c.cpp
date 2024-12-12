@@ -22,40 +22,30 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-using Graph = vector<vector<int>>;
+long double distance(ll ax, ll ay, ll bx, ll by){
+    return sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by));
+}
 
 int main(){
-    int r, c, sy, sx, gy, gx;
-    cin >> r >> c;
-    cin >> sy >> sx;
-    sy--, sx--;
-    cin >> gy >> gx;
-    gy--, gx--;
+    ll sx, sy, gx, gy;
+    cin >> sx >> sy >> gx >> gy;
 
-    vector<vector<char>> s(r, vector<char>(c));
-    rep(i, r) rep(j, c) cin >> s[i][j];
+    vector<pair<ll, ll>> p;
+    p.push_back({sx-1, sy+2});
+    p.push_back({sx-1, sy-2});
+    p.push_back({sx-2, sy+1});
+    p.push_back({sx-2, sy-1});
+    p.push_back({sx+1, sy-2});
+    p.push_back({sx+1, sy+2});
+    p.push_back({sx+2, sy-1});
+    p.push_back({sx+2, sy+1});
 
-    queue<pair<int, int>> que;
-    Graph dist(r, vector<int> (c, -1));
-
-    dist[sy][sx] = 0;
-    que.push({sy, sx});
-
-    while(!que.empty()){
-        auto [i, j] = que.front(); que.pop();
-
-        rep(dir, 4){
-            auto ny = i + dy[dir];
-            auto nx = j + dx[dir];
-
-            if(ny < 0 || ny >= r || nx < 0 || nx >= c) continue;
-            if(dist[ny][nx] != -1) continue;
-            if(s[ny][nx] != '.') continue;
-
-            dist[ny][nx] = dist[i][j] + 1;
-            que.push({ny, nx});
+    rep(i, p.size()){
+        if(distance(p[i].first, p[i].second, gx, gy) == (long double)(sqrt(5))){
+            cout << "Yes" << endl;
+            return 0;
         }
     }
-    cout << dist[gy][gx] << endl;
+    cout << "No" << endl;
     return 0;
 }

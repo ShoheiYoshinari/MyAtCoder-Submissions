@@ -22,40 +22,21 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-using Graph = vector<vector<int>>;
-
 int main(){
-    int r, c, sy, sx, gy, gx;
-    cin >> r >> c;
-    cin >> sy >> sx;
-    sy--, sx--;
-    cin >> gy >> gx;
-    gy--, gx--;
+    ll n;
+    cin >> n;
 
-    vector<vector<char>> s(r, vector<char>(c));
-    rep(i, r) rep(j, c) cin >> s[i][j];
+    ll comma = 0;
+    ll ans = 0;
+    ll l = 1, r = 10;
+    rep(i, 16){
+        if(r <= n) ans += (r-l)*comma;
+        else if(l <= n && n < r) ans += (n-l+1)*comma;
 
-    queue<pair<int, int>> que;
-    Graph dist(r, vector<int> (c, -1));
-
-    dist[sy][sx] = 0;
-    que.push({sy, sx});
-
-    while(!que.empty()){
-        auto [i, j] = que.front(); que.pop();
-
-        rep(dir, 4){
-            auto ny = i + dy[dir];
-            auto nx = j + dx[dir];
-
-            if(ny < 0 || ny >= r || nx < 0 || nx >= c) continue;
-            if(dist[ny][nx] != -1) continue;
-            if(s[ny][nx] != '.') continue;
-
-            dist[ny][nx] = dist[i][j] + 1;
-            que.push({ny, nx});
-        }
+        l *= 10;
+        r *= 10;
+        if(i%3 == 2) comma++;
     }
-    cout << dist[gy][gx] << endl;
+    cout << ans << endl;
     return 0;
 }
