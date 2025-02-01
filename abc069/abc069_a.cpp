@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 using ull = unsigned long long;
 const double pi = acos(-1);
@@ -25,18 +27,8 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int n, k;
-    cin >> n >> k;
-
-    while(k--){
-        string s = to_string(n);
-        sort(all(s));
-        int st = stoi(s);
-        reverse(all(s));
-        int en = stoi(s);
-
-        n = en - st;
-    }
-    cout << n << endl;
+    int n, m;
+    cin >> n >> m;
+    cout << (n-1)*(m-1) << endl;
     return 0;
 }

@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 using ull = unsigned long long;
 const double pi = acos(-1);
@@ -25,18 +27,14 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int n, k;
-    cin >> n >> k;
+    int h, w;
+    cin >> h >> w;
+    vector<vector<int>> a(h, vector<int>(w));
+    rep(i, h) rep(j, w) cin >> a[i][j];
 
-    while(k--){
-        string s = to_string(n);
-        sort(all(s));
-        int st = stoi(s);
-        reverse(all(s));
-        int en = stoi(s);
-
-        n = en - st;
+    rep(j, w){
+        rep(i, h) cout << a[i][j] << ' ';
+        cout << endl;
     }
-    cout << n << endl;
     return 0;
 }
