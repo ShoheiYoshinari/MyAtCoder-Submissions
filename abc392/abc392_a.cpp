@@ -23,34 +23,8 @@ struct INIT{
 }INIT;
 
 int main(){
-    int h, w;
-    cin >> h >> w;
-    vector<string> s(h);
-    rep(i, h) cin >> s[i];
-
-    int mx_row = -1, mn_row = h;
-    int mx_col = -1, mn_col = w;
-    rep(i, h){
-        rep(j, w){
-            if(s[i][j] == '#'){
-                chmin(mn_row, i);
-                chmin(mn_col, j);
-                chmax(mx_row, i);
-                chmax(mx_col, j);
-            }
-        }
-    }
-
-    rep(i, h){
-        rep(j, w){
-            if(mn_row <= i && i <=mx_row && mn_col <= j && j <= mx_col){
-                if(s[i][j] == '.'){
-                    cout << "No" << endl;
-                    return 0;
-                }
-            }
-        }
-    }
-    cout << "Yes" << endl;
-    return 0;
+    int a, b, c;
+    cin >> a >> b >> c;
+    if(a*b == c || b*c == a || c*a == b) cout << "Yes" << endl;
+    else cout << "No" << endl;
 }

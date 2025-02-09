@@ -18,39 +18,43 @@ struct INIT{
  INIT(){
   std::ios::sync_with_stdio(false);
   std::cin.tie(0);
-  cout << fixed << setprecision(20);
+  cout << fixed << setprecision(15);
  }
 }INIT;
 
-int main(){
-    int h, w;
-    cin >> h >> w;
-    vector<string> s(h);
-    rep(i, h) cin >> s[i];
-
-    int mx_row = -1, mn_row = h;
-    int mx_col = -1, mn_col = w;
-    rep(i, h){
-        rep(j, w){
-            if(s[i][j] == '#'){
-                chmin(mn_row, i);
-                chmin(mn_col, j);
-                chmax(mx_row, i);
-                chmax(mx_col, j);
-            }
+int main() {
+    int n;
+    cin >> n;
+    
+    vector<vector<int>> dice(n);
+    vector<unordered_map<int, int>> count(n);
+    
+    rep(i, n) {
+        int k;
+        cin >> k;
+        dice[i].resize(k);
+        rep(j, k) {
+            cin >> dice[i][j];
+            count[i][dice[i][j]]++;
         }
     }
-
-    rep(i, h){
-        rep(j, w){
-            if(mn_row <= i && i <=mx_row && mn_col <= j && j <= mx_col){
-                if(s[i][j] == '.'){
-                    cout << "No" << endl;
-                    return 0;
+    
+    double max_prob = 0.0;
+    
+    rep(i, n) {
+        rep(j, i+1, n) {
+            double prob = 0.0;
+            for (const auto& entry : count[i]) {
+                int value = entry.first;
+                if (exists(count[j], value)) {
+                    prob += (double)(entry.second) / dice[i].size() * (double)(count[j][value]) / dice[j].size();
                 }
             }
+            chmax(max_prob, prob);
         }
     }
-    cout << "Yes" << endl;
+    
+    cout << max_prob << endl;
+    
     return 0;
 }

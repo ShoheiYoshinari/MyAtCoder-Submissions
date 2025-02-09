@@ -22,35 +22,25 @@ struct INIT{
  }
 }INIT;
 
-int main(){
-    int h, w;
-    cin >> h >> w;
-    vector<string> s(h);
-    rep(i, h) cin >> s[i];
+int main() {
+    int n;
+    cin >> n;
+    vector<int> p(n), q(n);
+    rep(i, n) cin >> p[i];
+    rep(i, n) cin >> q[i];
 
-    int mx_row = -1, mn_row = h;
-    int mx_col = -1, mn_col = w;
-    rep(i, h){
-        rep(j, w){
-            if(s[i][j] == '#'){
-                chmin(mn_row, i);
-                chmin(mn_col, j);
-                chmax(mx_row, i);
-                chmax(mx_col, j);
-            }
-        }
+    vector<pair<int, int>> pq;
+    map<int, int> mp;
+    rep(i, n){
+        pq.push_back({q[i], i+1});
+        mp[i+1] = q[i];
+    }
+    sort(all(pq));
+
+    rep(i, n){
+        int t = p[pq[i].second-1];
+        cout << mp[t] << ' ';
     }
 
-    rep(i, h){
-        rep(j, w){
-            if(mn_row <= i && i <=mx_row && mn_col <= j && j <= mx_col){
-                if(s[i][j] == '.'){
-                    cout << "No" << endl;
-                    return 0;
-                }
-            }
-        }
-    }
-    cout << "Yes" << endl;
-    return 0;
 }
+
