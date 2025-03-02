@@ -26,21 +26,25 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-int main() {
-    string s;
-    cin >> s;
+int main(){
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
 
-    reverse(all(s));
+    map<int, vector<int>> mp;
+    rep(i, n){
+        mp[a[i]].push_back(i);
+    }
 
-    string t;
-    for (char c : s) {
-        t += c;
-        while (t.size() >= 2 && t.substr(t.size() - 2) == "AW") {
-            t.erase(t.size() - 2, 2);
-            t += "CA";
+    int ans = INF<int>();
+    for(auto p : mp){
+        if(p.second.size() > 1){
+            rep(i, 1, p.second.size()){
+                chmin(ans, p.second[i]-p.second[i-1]);
+            }
         }
     }
-    reverse(all(t));
-    cout << t << endl;
+    cout << (ans == INF<int>() ? -1 : ans+1) << endl;
     return 0;
 }

@@ -26,21 +26,34 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-int main() {
-    string s;
-    cin >> s;
+int main(){
+    int n, q;
+    cin >> n >> q;
+    vector<int> bird(n), p(n), su(n);
+    rep(i, n) bird[i] = i;
+    rep(i, n) p[i] = i;
+    rep(i, n) su[i] = i;
 
-    reverse(all(s));
-
-    string t;
-    for (char c : s) {
-        t += c;
-        while (t.size() >= 2 && t.substr(t.size() - 2) == "AW") {
-            t.erase(t.size() - 2, 2);
-            t += "CA";
+    rep(i, q){
+        int op;
+        cin >> op;
+        if(op == 1){
+            int a, b;
+            cin >> a >> b;
+            a--, b--;
+            su[a] = p[b];
+        }else if(op == 2){
+            int a, b;
+            cin >> a >> b;
+            a--, b--;
+            swap(p[a], p[b]);
+            swap(bird[p[a]], bird[p[b]]);
+        }else if(op == 3){
+            int a;
+            cin >> a;
+            a--;
+            cout << bird[su[a]] + 1 << endl;
         }
     }
-    reverse(all(t));
-    cout << t << endl;
     return 0;
 }
