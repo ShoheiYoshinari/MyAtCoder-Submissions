@@ -27,24 +27,28 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    rep(i, n) cin >> a[i];
+    ll n, m;
+    cin >> n >> m;
+    vector<ll> b(n), w(m);
+    rep(i, n) cin >> b[i];
+    rep(i, m) cin >> w[i];
 
-    map<int, vector<int>> mp;
+    sort(all(b));
+    reverse(all(b));
+    sort(all(w));
+    reverse(all(w));
+
+    ll ans = 0;
+    ll now = 0;
+    ll j = 0;
     rep(i, n){
-        mp[a[i]].push_back(i);
-    }
-
-    int ans = INF<int>();
-    for(auto p : mp){
-        if(p.second.size() > 1){
-            rep(i, 1, p.second.size()){
-                chmin(ans, p.second[i]-p.second[i-1]);
-            }
+        now += b[i];
+        while(i >= j && w[j] >= 0 && j < m){
+            now += w[j];
+            j++;
         }
+        chmax(ans, now);
     }
-    cout << (ans == INF<int>() ? -1 : ans+1) << endl;
+    cout << ans << endl;
     return 0;
 }

@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
 using namespace std;
-using namespace atcoder;
 using ll = long long;
 using ull = unsigned long long;
 const double pi = acos(-1);
@@ -13,38 +11,36 @@ const double pi = acos(-1);
 #define exists(c, e) ((c).find(e) != (c).end())
 template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
 template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
-template<class T>constexpr T INF() { return ::std::numeric_limits<T>::max(); }
-template<class T>constexpr T HINF() { return INF<T>() / 2; }
 const int dy[] = {1, 0, -1, 0};
 const int dx[] = {0, 1, 0, -1};
 
 struct INIT{
-INIT(){
-std::ios::sync_with_stdio(false);
-std::cin.tie(0);
-cout << fixed << setprecision(20);
-}
+ INIT(){
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(0);
+  cout << fixed << setprecision(20);
+ }
 }INIT;
 
 int main(){
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    rep(i, n) cin >> a[i];
+    int q;
+    cin >> q;
 
-    map<int, vector<int>> mp;
-    rep(i, n){
-        mp[a[i]].push_back(i);
-    }
-
-    int ans = INF<int>();
-    for(auto p : mp){
-        if(p.second.size() > 1){
-            rep(i, 1, p.second.size()){
-                chmin(ans, p.second[i]-p.second[i-1]);
+    stack<int> st;
+    rep(i, q){
+        int j;
+        cin >> j;
+        if(j == 1){
+            int x;
+            cin >> x;
+            st.push(x);
+        }else if(j == 2){
+            if(st.size() == 0) cout << 0 << endl;
+            else{
+                cout << st.top() << endl;
+                st.pop();
             }
         }
     }
-    cout << (ans == INF<int>() ? -1 : ans+1) << endl;
     return 0;
 }
