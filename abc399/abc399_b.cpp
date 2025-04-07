@@ -26,10 +26,42 @@ cout << fixed << setprecision(20);
 }
 }INIT;
 
-int main(){
-    int a, b;
-    cin >> a >> b;
-    if(a <= 8 && b <= 8) cout << "Yay!" << endl;
-    else cout << ":(" << endl;
+int main() {
+    int N;
+    cin >> N;
+    
+    vector<int> P(N);
+    vector<pair<int, int>> scores;
+    
+    for (int i = 0; i < N; i++) {
+        cin >> P[i];
+        scores.push_back({P[i], i});
+    }
+    
+    sort(scores.rbegin(), scores.rend());
+    
+    vector<int> rank(N);
+    int r = 1;
+    
+    for (int i = 0; i < N; i++) {
+        int score = scores[i].first;
+        int count = 1;
+        
+        while (i + count < N && scores[i + count].first == score) {
+            count++;
+        }
+        
+        for (int j = i; j < i + count; j++) {
+            rank[scores[j].second] = r;
+        }
+        
+        r += count;
+        i += count - 1;
+    }
+    
+    for (int i = 0; i < N; i++) {
+        cout << rank[i] << endl;
+    }
+    
     return 0;
 }

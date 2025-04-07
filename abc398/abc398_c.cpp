@@ -27,9 +27,19 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int a, b;
-    cin >> a >> b;
-    if(a <= 8 && b <= 8) cout << "Yay!" << endl;
-    else cout << ":(" << endl;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
+
+    map<int, int> mp;
+    rep(i, n) mp[a[i]]++;
+
+    int mx = -1;
+    int ans = -1;
+    rep(i, n){
+        if(mp[a[i]] == 1 && chmax(mx, a[i])) ans = i+1;
+    }
+    cout << ans << endl;
     return 0;
 }

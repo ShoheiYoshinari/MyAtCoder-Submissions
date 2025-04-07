@@ -27,9 +27,22 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int a, b;
-    cin >> a >> b;
-    if(a <= 8 && b <= 8) cout << "Yay!" << endl;
-    else cout << ":(" << endl;
+    vector<int> a(7);
+    rep(i, 7) cin >> a[i];
+
+    map<int, int> mp;
+    rep(i, 7) mp[a[i]]++;
+
+    bool ok = false;
+    for(auto [k, v] : mp){
+        if(v >= 3){
+            for(auto [k2, v2] : mp){
+                if(k2 != k && v2 >= 2){
+                    ok = true;
+                }
+            }
+        }
+    }
+    cout << (ok ? "Yes" : "No") << endl;
     return 0;
 }

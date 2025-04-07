@@ -27,9 +27,15 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int a, b;
-    cin >> a >> b;
-    if(a <= 8 && b <= 8) cout << "Yay!" << endl;
-    else cout << ":(" << endl;
-    return 0;
+    int n;
+    cin >> n;
+    if(n%2 == 0){
+        rep(i, n/2-1) cout << '-';
+        cout << "==";
+        rep(i, n/2-1) cout << '-';
+    }else{
+        rep(i, n/2) cout << '-';
+        cout << '=';
+        rep(i, n/2) cout << '-';
+    }
 }

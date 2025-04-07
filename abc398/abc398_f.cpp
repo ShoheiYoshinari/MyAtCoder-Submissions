@@ -27,9 +27,22 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int a, b;
-    cin >> a >> b;
-    if(a <= 8 && b <= 8) cout << "Yay!" << endl;
-    else cout << ":(" << endl;
+    string s;
+    cin >> s;
+    int n = s.size();
+
+    string t = s;
+    reverse(all(t));
+    t += s;
+    vector<int> z = z_algorithm(t);
+
+    rep(i, n){
+        if(z[n+i] == n-i){
+            string ans = s;
+            ans += t.substr(n-i, i);
+            cout << ans << endl;
+            return 0;
+        }
+    }
     return 0;
 }
