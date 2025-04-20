@@ -23,19 +23,34 @@ struct INIT{
 }INIT;
 
 int main(){
-    ll n, m;
-    cin >> n >> m;
+    int n, x;
+    cin >> n >> x;
+    vector<ll> s(n), c(n), p(n);
+    rep(i, n) cin >> s[i] >> c[i] >> p[i];
 
-    ll sum = 0;
-    ll t = 1;
-    m++;
-    while(m--){
-        if(sum + t > 1e9){
-            cout << "inf" << endl;
-            return 0;
+    vector<long double> pp(n);
+    rep(i, n) pp[i] = p[i]/100.0;
+
+    int m = 1<<n;
+    vector<vector<long double>> dp(x+1, vector<long double>(m, 0.0));
+
+    for(int bit = 1; bit <= x; bit++){
+        for(int mask = 0; mask < m; mask++){
+            long double best = 0.0;
+
+            rep(i, n){
+                //未正解なら
+                if(!(mask&(1<<i))){
+                    if(c[i] <= bit){
+                        long double e = pp[i]*(s[i]+dp[bit-c[i]][mask|(1<<i)]) + (1.0-pp[i])*dp[bit-c[i]][mask];
+                        chmax(best, e);
+                    }
+                }
+            }
+            dp[bit][mask] = best;
         }
-        sum += t;
-        t *= n;
     }
-    cout << sum << endl;
+
+    cout << dp[x][0] << endl;
+    return 0;
 }

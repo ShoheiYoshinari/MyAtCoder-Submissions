@@ -23,19 +23,20 @@ struct INIT{
 }INIT;
 
 int main(){
-    ll n, m;
-    cin >> n >> m;
+    int q;
+    cin >> q;
+    queue<int> que;
 
-    ll sum = 0;
-    ll t = 1;
-    m++;
-    while(m--){
-        if(sum + t > 1e9){
-            cout << "inf" << endl;
-            return 0;
+    rep(i, q){
+        int t;
+        cin >> t;
+        if(t == 1){
+            int x;
+            cin >> x;
+            que.push(x);
+        }else{
+            cout << que.front() << endl;
+            que.pop();
         }
-        sum += t;
-        t *= n;
     }
-    cout << sum << endl;
 }

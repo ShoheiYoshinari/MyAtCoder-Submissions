@@ -23,9 +23,8 @@ struct INIT{
 }INIT;
 
 int main(){
-    int s;
-    cin >> s;
-    if(200 <= s && s <= 299) cout << "Success" << endl;
-    else cout << "Failure" << endl;
+    int n;
+    cin >> n;
+    cout << (n == 12 ? 1 : n+1) << endl;
     return 0;
 }

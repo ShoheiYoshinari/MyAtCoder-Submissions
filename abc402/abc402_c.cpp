@@ -23,19 +23,37 @@ struct INIT{
 }INIT;
 
 int main(){
-    ll n, m;
+    int n, m;
     cin >> n >> m;
-
-    ll sum = 0;
-    ll t = 1;
-    m++;
-    while(m--){
-        if(sum + t > 1e9){
-            cout << "inf" << endl;
-            return 0;
+    vector<vector<int>> ing(m), used(n+1);
+    rep(i, m){
+        int k;
+        cin >> k;
+        ing[i].resize(k);
+        rep(j, k){
+            cin >> ing[i][j];
+            used[ing[i][j]].push_back(i);
         }
-        sum += t;
-        t *= n;
     }
-    cout << sum << endl;
+
+    vector<int> b(n);
+    rep(i, n) cin >> b[i];
+
+    vector<int> cnt(m);
+    rep(i, m) cnt[i] = ing[i].size();
+
+    vector<bool> eat(m, false);
+    int ans = 0;
+    rep(i, n){
+        int x = b[i];
+        for(auto d : used[x]){
+            cnt[d]--;
+            if(cnt[d] == 0){
+                ans++;
+                eat[d] = true;
+            }
+        }
+        cout << ans << endl;
+    }
+    return 0;
 }

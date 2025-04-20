@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 using ull = unsigned long long;
 const double pi = acos(-1);
@@ -11,21 +13,22 @@ const double pi = acos(-1);
 #define exists(c, e) ((c).find(e) != (c).end())
 template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
 template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
+template<class T>constexpr T INF() { return ::std::numeric_limits<T>::max(); }
+template<class T>constexpr T HINF() { return INF<T>() / 2; }
 const int dy[] = {1, 0, -1, 0};
 const int dx[] = {0, 1, 0, -1};
 
 struct INIT{
- INIT(){
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(0);
-  cout << fixed << setprecision(20);
- }
+INIT(){
+std::ios::sync_with_stdio(false);
+std::cin.tie(0);
+cout << fixed << setprecision(20);
+}
 }INIT;
 
 int main(){
-    int s;
+    string s;
     cin >> s;
-    if(200 <= s && s <= 299) cout << "Success" << endl;
-    else cout << "Failure" << endl;
+    cout << s << "pp" << endl;
     return 0;
 }

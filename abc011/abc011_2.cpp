@@ -23,9 +23,16 @@ struct INIT{
 }INIT;
 
 int main(){
-    int s;
+    string s;
     cin >> s;
-    if(200 <= s && s <= 299) cout << "Success" << endl;
-    else cout << "Failure" << endl;
+    string t;
+    rep(i, s.size()){
+        if(i == 0){
+            t += toupper(s[i]);
+        }else{
+            t += tolower(s[i]);
+        }
+    }
+    cout << t << endl;
     return 0;
 }

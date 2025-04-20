@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 using ull = unsigned long long;
 const double pi = acos(-1);
@@ -11,31 +13,43 @@ const double pi = acos(-1);
 #define exists(c, e) ((c).find(e) != (c).end())
 template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
 template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
+template<class T>constexpr T INF() { return ::std::numeric_limits<T>::max(); }
+template<class T>constexpr T HINF() { return INF<T>() / 2; }
 const int dy[] = {1, 0, -1, 0};
 const int dx[] = {0, 1, 0, -1};
 
 struct INIT{
- INIT(){
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(0);
-  cout << fixed << setprecision(20);
- }
+INIT(){
+std::ios::sync_with_stdio(false);
+std::cin.tie(0);
+cout << fixed << setprecision(20);
+}
 }INIT;
+
+bool my_compare(pair<int, int> a, pair<int, int> b) {
+    if(a.first != b.first){
+         return a.first < b.first;
+    }
+    return a.second > b.second;
+}
 
 int main(){
     ll n, m;
     cin >> n >> m;
-
-    ll sum = 0;
-    ll t = 1;
-    m++;
-    while(m--){
-        if(sum + t > 1e9){
-            cout << "inf" << endl;
-            return 0;
-        }
-        sum += t;
-        t *= n;
+    vector<ll> a(n, 0);
+    rep(i, m){
+        ll aa, b;
+        cin >> aa >> b;
+        aa--, b--;
+        ll s = (aa+b)%n;
+        a[s]++;
     }
-    cout << sum << endl;
+
+    ll ans = m*(m-1)/2;
+    ll noCross = 0;
+    for(ll c : a){
+        noCross += c*(c-1)/2;
+    }
+    cout << ans - noCross << endl;
+    return 0;
 }

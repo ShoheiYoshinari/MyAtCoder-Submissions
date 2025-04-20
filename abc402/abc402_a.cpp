@@ -23,9 +23,12 @@ struct INIT{
 }INIT;
 
 int main(){
-    int s;
+    string s, t;
     cin >> s;
-    if(200 <= s && s <= 299) cout << "Success" << endl;
-    else cout << "Failure" << endl;
+    rep(i, s.size()){
+        if('a' <= s[i] && s[i] <= 'z') continue;
+        t += s[i];
+    }
+    cout << t << endl;
     return 0;
 }
