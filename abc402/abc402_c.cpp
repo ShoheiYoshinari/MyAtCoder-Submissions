@@ -25,24 +25,27 @@ struct INIT{
 int main(){
     int n, m;
     cin >> n >> m;
-    vector<vector<int>> ing(m), used(n+1);
+    vector<vector<int>> ing(m), used(n);
     rep(i, m){
         int k;
         cin >> k;
         ing[i].resize(k);
         rep(j, k){
             cin >> ing[i][j];
+            ing[i][j]--;
             used[ing[i][j]].push_back(i);
         }
     }
 
     vector<int> b(n);
-    rep(i, n) cin >> b[i];
+    rep(i, n){
+        cin >> b[i];
+        b[i]--;
+    }
 
     vector<int> cnt(m);
     rep(i, m) cnt[i] = ing[i].size();
 
-    vector<bool> eat(m, false);
     int ans = 0;
     rep(i, n){
         int x = b[i];
@@ -50,7 +53,6 @@ int main(){
             cnt[d]--;
             if(cnt[d] == 0){
                 ans++;
-                eat[d] = true;
             }
         }
         cout << ans << endl;
