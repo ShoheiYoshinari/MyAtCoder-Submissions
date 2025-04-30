@@ -1,22 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep2(i, s, n) for (int i = (s); i < (int)(n); i++)
-#define all(a) (a).begin(), (a).end()
-const int dx[]={1,1,1,0,0,-1,-1,-1};
-const int dy[]={1,0,-1,1,-1,1,0,-1};
-const double PI = acos(-1);
+using ull = unsigned long long;
+const double pi = acos(-1);
+#define OVERLOAD_REP(_1, _2, _3, name, ...) name
+#define REP1(i, n) for (auto i = std::decay_t<decltype(n)>{}; (i) != (n); ++(i))
+#define REP2(i, l, r) for (auto i = (l); (i) != (r); ++(i))
+#define rep(...) OVERLOAD_REP(__VA_ARGS__, REP2, REP1)(__VA_ARGS__)
+#define all(p) (p).begin(), (p).end()
+#define exists(c, e) ((c).find(e) != (c).end())
+template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
+template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
+template<class T>constexpr T INF() { return ::std::numeric_limits<T>::max(); }
+template<class T>constexpr T HINF() { return INF<T>() / 2; }
+const int dy[] = {1, 0, -1, 0};
+const int dx[] = {0, 1, 0, -1};
+
+struct INIT{
+INIT(){
+std::ios::sync_with_stdio(false);
+std::cin.tie(0);
+cout << fixed << setprecision(20);
+}
+}INIT;
 
 int main(){
     int x, y;
-    int n = 0;
     cin >> x >> y;
 
-    while(x < y){
-        x += 10;
-        n++;
+    int sum = x;
+    int count = 0;
+    while(sum < y){
+        sum += 10;
+        count++;
     }
-    cout << n << endl;
-
+    cout << count << endl;
+    return 0;
 }
