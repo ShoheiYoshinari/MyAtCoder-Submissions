@@ -1,0 +1,102 @@
+#include <bits/stdc++.h>
+#include <atcoder/all>
+using namespace std;
+using namespace atcoder;
+using ll = long long;
+using ull = unsigned long long;
+const double pi = acos(-1);
+#define OVERLOAD_REP(_1, _2, _3, name, ...) name
+#define REP1(i, n) for (auto i = std::decay_t<decltype(n)>{}; (i) != (n); ++(i))
+#define REP2(i, l, r) for (auto i = (l); (i) != (r); ++(i))
+#define rep(...) OVERLOAD_REP(__VA_ARGS__, REP2, REP1)(__VA_ARGS__)
+#define all(p) (p).begin(), (p).end()
+#define exists(c, e) ((c).find(e) != (c).end())
+template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
+template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
+template<class T>constexpr T INF() { return ::std::numeric_limits<T>::max(); }
+template<class T>constexpr T HINF() { return INF<T>() / 2; }
+const int di[] = {1, 0, -1, 0};
+const int dj[] = {0, 1, 0, -1};
+
+struct INIT{
+INIT(){
+std::ios::sync_with_stdio(false);
+std::cin.tie(0);
+cout << fixed << setprecision(20);
+}
+}INIT;
+
+using Graph = vector<vector<int>>;
+int main(){
+    int h, w;
+    cin >> h >> w;
+    vector<string> s(h);
+    rep(i, h) cin >> s[i];
+
+    vector<vector<int>> dist(h, vector<int>(w, INF<int>()));
+    vector<pair<int, int>> p;
+    rep(i, h){
+        rep(j, w){
+            if(s[i][j] == 'E'){
+                p.push_back({i, j});
+            }
+        }
+    }
+
+    queue<pair<int, int>> q;
+    for(auto [k, v] : p){
+        q.push({k, v});
+        dist[k][v] = 0;
+    }
+
+    while(!q.empty()){
+        auto [i, j] = q.front(); q.pop();
+        rep(dir, 4){
+            int ni = i + di[dir];
+            int nj = j + dj[dir];
+
+            if(ni < 0 || ni >= h || nj < 0 || nj >= w) continue;
+            if(s[ni][nj] == '#') continue;
+                
+            if(dist[ni][nj] > dist[i][j]+1){
+                dist[ni][nj] = dist[i][j] + 1;
+                q.push({ni, nj});
+            }
+        }
+    }
+
+    // rep(i, h){
+    //     rep(j, w){
+    //         if(dist[i][j] == INF<int>()) cout << "# ";
+    //         else cout << dist[i][j] << ' ';
+    //     }
+    //     cout << endl;
+    // }
+
+    rep(i, h){
+        rep(j, w){
+            if(s[i][j] == 'E' || s[i][j] == '#') continue;
+            rep(dir, 4){
+                int ni = i + di[dir];
+                int nj = j + dj[dir];
+                if(ni < 0 || ni >= h || nj < 0 || nj >= w) continue;
+                
+                if(dist[ni][nj] == dist[i][j] - 1 || s[ni][nj] == 'E'){
+                    if(dir == 0) s[i][j] = 'v';
+                    if(dir == 1) s[i][j] = '>';
+                    if(dir == 2) s[i][j] = '^';
+                    if(dir == 3) s[i][j] = '<';
+                }
+            }
+        }
+    }
+
+    rep(i, h){
+        rep(j, w){
+            cout << s[i][j];
+        }
+        cout << endl;
+    }
+    return 0;
+
+}
