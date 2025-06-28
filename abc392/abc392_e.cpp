@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
+// #include <atcoder/all>
 using namespace std;
-using namespace atcoder;
+// using namespace atcoder;
 using ll = long long;
 using ull = unsigned long long;
 const double pi = acos(-1);
@@ -94,14 +94,14 @@ int main(){
 
     set<int> st;
     rep(i, n) st.insert(uf.root(i));
-    cout << st.size()-1 << endl;
+    cout << st.size() - 1 << endl;
     while(st.size() > 1){
-        auto [ei, a, b] = es.back(); es.pop_back();
+        auto [ei, a, b]  = es.back(); es.pop_back();
         int v = uf.root(a);
         st.erase(v);
         int u = *st.begin();
         st.erase(u);
-        uf.unite(u, v);
+        uf.unite(v, u);
         st.insert(uf.root(v));
         cout << ei+1 << ' ' << a+1 << ' ' << u+1 << endl;
     }

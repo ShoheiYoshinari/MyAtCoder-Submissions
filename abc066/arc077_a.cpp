@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+// #include <atcoder/all>
 using namespace std;
+// using namespace atcoder;
 using ll = long long;
 using ull = unsigned long long;
 const double pi = acos(-1);
@@ -11,6 +13,8 @@ const double pi = acos(-1);
 #define exists(c, e) ((c).find(e) != (c).end())
 template<class T> bool chmin(T& a,T b) { if(a > b){a = b; return true;} return false; }
 template<class T> bool chmax(T& a,T b) { if(a < b){a = b; return true;} return false; }
+template<class T>constexpr T INF() { return ::std::numeric_limits<T>::max(); }
+template<class T>constexpr T HINF() { return INF<T>() / 2; }
 const int dy[] = {1, 0, -1, 0};
 const int dx[] = {0, 1, 0, -1};
 
@@ -28,24 +32,27 @@ int main(){
     vector<int> a(n);
     rep(i, n) cin >> a[i];
 
-    bool inv = true;
+
+    bool re = false;
     deque<int> deq;
     rep(i, n){
-        if(inv) deq.push_back(a[i]);
+        if(!re) deq.push_back(a[i]);
         else deq.push_front(a[i]);
-        inv = !inv;
+        re = !re;
     }
 
-    if(!inv){
-        for(auto itr = deq.rbegin(); itr != deq.rend(); ++itr){
+    if(re){
+        for(auto itr = deq.rbegin(); itr != deq.rend(); itr++){
             cout << *itr << ' ';
         }
         cout << endl;
     }else{
-        for(auto itr = deq.begin(); itr != deq.end(); ++itr){
+        for(auto itr = deq.begin(); itr != deq.end(); itr++){
             cout << *itr << ' ';
         }
         cout << endl;
     }
     return 0;
+
+
 }

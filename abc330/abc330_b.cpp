@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
+// #include <atcoder/all>
 using namespace std;
-using namespace atcoder;
+// using namespace atcoder;
 using ll = long long;
 using ull = unsigned long long;
 const double pi = acos(-1);
@@ -27,8 +27,21 @@ cout << fixed << setprecision(20);
 }INIT;
 
 int main(){
-    int a, b, c, d;
-    cin >> a >> b >> c >> d;
-    cout << max(a*b, c*d) << endl;
+    int n, l, r;
+    cin >> n >> l >> r;
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
+
+    rep(i, n){
+        if(l <= a[i] && a[i] <= r){
+            cout << a[i] << endl;
+        }else{
+            if(abs(a[i] - l) < abs(a[i] - r)){
+                cout << l << endl;
+            }else{
+                cout << r << endl;
+            }
+        }
+    }
     return 0;
 }
